@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<GameProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\Git\CocoLink</ProjectDir>
+  <Version>1.4.0.1</Version>
+  <Resources>E:\Git\CocoLink</Resources>
+  <Name>CocoLink</Name>
+  <JsonFileName>CocoLink.json</JsonFileName>
+  <JsonList />
+  <CanvasSize>
+    <Width>480</Width>
+    <Height>320</Height>
+  </CanvasSize>
+  <filePath>E:\Git\CocoLink\CocoLink.xml.ccsproj</filePath>
+  <ProjectType>GameProject</ProjectType>
+  <ResRelativePath />
+  <ResProjFolder>E:\Git\CocoLink\CocoStudio\ccsprojs</ResProjFolder>
+  <AssetsDir>E:\Git\CocoLink\CocoStudio\assets</AssetsDir>
+  <LanaguageType>cpp</LanaguageType>
+</GameProject>

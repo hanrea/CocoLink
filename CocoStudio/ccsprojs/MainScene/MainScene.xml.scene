@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<SceneProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene</ProjectDir>
+  <Version>1.4.0.1</Version>
+  <Resources>E:\Git\CocoLink</Resources>
+  <Name>MainScene</Name>
+  <JsonFileName>MainScene.json</JsonFileName>
+  <JsonFolder>E:\Git\CocoLink\CocoStudio\assets\publish</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>480</Width>
+    <Height>320</Height>
+  </CanvasSize>
+  <filePath>E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
+  <ProjectType>SceneProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <JSFileList />
+  <DefaultUI_JSList />
+  <Res>E:\Git\CocoLink\CocoStudio\assets</Res>
+</SceneProject>
