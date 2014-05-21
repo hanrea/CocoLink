@@ -99,6 +99,13 @@ function TriggerTest.create()
             end
         end
         layer:registerScriptHandler(onNodeEvent)
+		
+		local function onKeyBoardEvent(KeyCode)
+			if KeyCode== KEY_F5 then
+				cclog("f5ff5f5f5ff5f5f5f")
+			end
+		end
+		layer:registerScriptHandler(onKeyBoardEvent,cc.EVENT_KEYBOARD)
     end
 	cclog("creatend")
     return layer
