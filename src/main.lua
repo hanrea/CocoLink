@@ -36,12 +36,15 @@ local function main()
     end
     ---------------
 
-	--require "src/cocolink"
-   require "src/TriggerHelper"
-	creatRandomTable(10,10,1,18)
-	creatNullTabel(10,10)
+	require "src/cocolink"
+  -- require "src/link"
+	--for i=1,1000 do
+	--creatDoubleRandomTable(6,6,1,9)
+	--creatTabelfromeFile()
+	--end
+	--creatNullTabel(10,10)
      local sceneGame = cc.Scene:create()
-	--sceneGame:addChild(TriggerTest.create())
+	sceneGame:addChild(TriggerTest.create())
 
 	if cc.Director:getInstance():getRunningScene() then
 		cc.Director:getInstance():replaceScene(sceneGame)
@@ -68,7 +71,7 @@ local timeCount = 0
 local function checkMemory(dt)
     timeCount = timeCount + dt
     local used = tonumber(collectgarbage("count"))
-    cclog(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
+   -- cclog(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
 end
 --if DEBUG  then
     CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 20.0, false)

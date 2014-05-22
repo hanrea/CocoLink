@@ -8,7 +8,7 @@
   <JsonFolder>E:\Git\CocoLink\CocoStudio\assets\publish</JsonFolder>
   <JsonList />
   <CanvasSize>
-    <Width>480</Width>
+    <Width>568</Width>
     <Height>320</Height>
   </CanvasSize>
   <filePath>E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
@@ -16,5 +16,7 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <JSFileList />
   <DefaultUI_JSList />
+  <ExternalSimulatorPath>E:\Git\CocoLink\Simulator.exe</ExternalSimulatorPath>
+  <ExternalCommand>-FLUSHTYPE 1 -XMLPATH E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene -DLLPATH C:\Users\hanrea\Documents\CocoStudio\Plugins\1.4\CustomWidget.dll|</ExternalCommand>
   <Res>E:\Git\CocoLink\CocoStudio\assets</Res>
 </SceneProject>

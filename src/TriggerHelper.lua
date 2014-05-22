@@ -28,10 +28,52 @@ function addArmature( fileName )
 	CCArmatureDataManager:sharedArmatureDataManager():addArmatureFileInfo(fileName)
 end
 
+function testcreat(tabelRow,tabelCol,NumbelMix,NumbelMax)
+	NumbelMix = math.ceil(NumbelMix) or 0
+	NumbelMax = math.ceil(NumbelMax) or 100
+	local tab={}
+	math.randomseed(os.time())
+	for i=1,tabelRow do
+		tabRow={}
+		for j=1,tabelCol do
+			tabRow[j]=0
+			--tabRow[j]=math.random(NumbelMix,NumbelMax)
+			--print(math.random(NumbelMix,NumbelMax))
+			--print("tab["..i.."]["..j.."]===>"..tab[i][j])
+		end
+		tab[i]=tabRow
+	end
+	--print_r(tab)
+	---test
+	print(isConnection(tab,1,1,1,1))
+	print(isConnection(tab,1,1,1,2))
+	print(isConnection(tab,1,2,3,3))
+	print(isConnection(tab,2,2,4,4))
+	
+	
+end
+
+
 ---------------
 ---判断入口
 function isConnection(tabel,x1,y1,x2,y2)
-	if islineConnection(tabel,x1,y1,x2,y2) or isOneCornerConnection(tabel,x1,y1,x2,y2) or IsTwoCornerConnection(tabel,x1,y1,x2,y2) then
+		print_r(tabel)
+	cclog("rukou %f    %f   %f    %f   ",x1,y1,x2,y2)
+	if  x1 ==x2 then
+		
+		if y1==y2 then
+			cclog("---------61")
+			return false
+		end
+	end
+	if islineConnection(tabel,x1,y1,x2,y2) then
+		cclog("----36")
+		return true
+	elseif   isOneCornerConnection(tabel,x1,y1,x2,y2) then
+		cclog("----39")
+		return true
+	elseif  isTwoCornerConnection(tabel,x1,y1,x2,y2) then
+		cclog("----42")
 		return true
 	else
 		return false
@@ -40,23 +82,25 @@ end
 
 ----单行
 function islineConnection(tabel,x1,y1,x2,y2)
+	cclog("islineConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
 	local i=0
 	local temp
-	if  x1 ==x2 and y1==y2 then
-		return false
-	end
+	
+	cclog("---------89")
 	if x1==x2 then
 		local caltabel = tabel[x1]
 		temp = math.abs(y2-y1)
 		if y2>y1 then
 			for i=1,temp do
 				if caltabel[y1+i] ~= 0 then
+					cclog("---------66")
 					return false
 				end
 			end
 		else
 			for i=1,temp do
 				if caltabel[y1-i] ~= 0 then
+					cclog("---------73")
 					return false
 				end
 			end
@@ -69,7 +113,9 @@ function islineConnection(tabel,x1,y1,x2,y2)
 		if x2>x1 then
 			for i=1,temp do
 				local rowtabel =tabel[x1+1]
+				
 				if rowtabel[y1] ~= 0 then
+					cclog("---------88")
 					return false
 				end
 			end
@@ -77,31 +123,56 @@ function islineConnection(tabel,x1,y1,x2,y2)
 			for i=1,temp do
 				local rowtabel =tabel[x1+1]
 				if rowtabel[y1] ~= 0 then
+					cclog("---------96")
 					return false
 				end
 			end
 		end
 	end
+	
+	return true
 end
 
+
+
 function isOneCornerConnection(tabel,x1,y1,x2,y2)
-	if tabel[x1][y2]==0 and IsLineConnection(tabel,x1,y1,x1,y2) and IsLineConnection(tabel,x2,y2,x1,y2) then
-	 return true
+--	cclog("isOneCornerConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
+	if tabel[x1][y2]==0 then
+		cclog("---------141")
+		if 	islineConnection(tabel,x1,y1,x1,y2) then 
+			cclog("---------143")
+			if	islineConnection(tabel,x2,y2,x1,y2) then
+				return true
+			end
+		end
 	end
-	if tabel[x2][y1]==0 and IsLineConnection(tabel,x1,y1,x2,y1) and IsLineConnection(tabel,x2,y2,x2,y1) then
-	 return true
+	if tabel[x2][y1]==0 then
+		cclog("---------150")
+		if 	islineConnection(tabel,x1,y1,x2,y1) then
+			
+			if islineConnection(tabel,x2,y2,x2,y1) then
+				cclog("---------154")
+				return true
+			end
+		end
 	end
 	return false
 end
-function IsTwoCornerConnection(tabel,x1,y1,x2,y2)
-	local i
+
+
+function isTwoCornerConnection(tabel,x1,y1,x2,y2)
+--	cclog("isTwoCornerConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
+	--local i=0
 	--往左扫描
+
 	for i=y1-1,i>=0,i-1 do
 		if tabel[x1][i]~= 0 then
+		
 		elseif isOneCornerConnection(tabel,x1,i,x2,y2) then
 			return true
 		end
 	end
+	
 	--往上扫描
 	for i= x1-1,i>=0,i-1 do
 		if tabel[i][y1]~=0 then
@@ -125,6 +196,7 @@ function IsTwoCornerConnection(tabel,x1,y1,x2,y2)
 			return true
 		end
 	end
+	return false
 end
 
 --------------
@@ -146,11 +218,11 @@ function creatRandomTable(tabelRow,tabelCol,NumbelMix,NumbelMax)
 		end
 		tab[i]=tabRow
 	end
-	print_lua_table(tab)
-	print_r(tab)
+	
+	--print_r(tab)
 end
 
----生成归零表格
+---生成  /  归零表格
 function creatNullTabel(tabelRow,tabelCol,tabel)
 	tabel=tabel or {}
 	for i=1,tabelRow do
@@ -160,7 +232,6 @@ function creatNullTabel(tabelRow,tabelCol,tabel)
 		end
 		tabel[i]=tabRow
 	end
-	-- print_r(tabel)
 	return tabel
 end
 
@@ -170,48 +241,84 @@ end
 function creatDoubleRandomTable(tabelRow,tabelCol,NumbelMix,NumbelMax)
 	NumbelMix = math.ceil(NumbelMix) or 0
 	NumbelMax = math.ceil(NumbelMax) or 10
+	tabelRow= math.ceil(NumbelMax/2)*2+2
+	tabelCol= math.ceil(tabelCol/2)*2+2
 	local total = tabelRow * tabelCol /2
 	local tabel=creatNullTabel(tabelRow,tabelCol)
-	
-	tabRow[j]=math.random(NumbelMix,NumbelMax)
-	
 	math.randomseed(os.time())
 	
 	for t=0,total do
 		--记录两个点的位置
-		local x1,y1=0
-		local x2,y2=0
-		local index = math.random(NumbelMix,NumbelMax)
-		
+		local x1= 0
+		local y1= 0
+		local x2= 0
+		local y2= 0
+		--图像索引
+		local spriteindex = math.random(NumbelMix,NumbelMax)
 		
 		--模拟添加第一个点
-		while x1~=- and y1~=0 do
-			local xa= math.random(1,tabelCol)
-			local ya= math.random(1,tabelRow)
-			if tabel[xa][ya] ~=0 then
-				x1=xa 
-				y1=ya
+		while x1==0  do
+			while y1==0  do
+				local xa= math.random(1,tabelCol)
+				local ya= math.random(1,tabelRow)
+				if tabel[xa][ya] ==0 then
+					cclog("addone")
+					x1=xa 
+					y1=ya
+				end
 			end
 		end
-		 
-		 --模拟添加第一个点
-		while x2~=- and y2~=0 do
-			local xb= math.random(1,tabelCol)
-			local yb= math.random(1,tabelRow)
-			if tabel[xb][yb] ~=0 then
-				x2=xb 
-				y2=yb
+		 --模拟添加第er个点
+		while x2==0 do
+			while y2==0 do
+				local xb= math.random(1,tabelCol)
+				local yb= math.random(1,tabelRow)
+				if tabel[xb][yb] ==0 then
+					cclog("addtwo")
+					x2=xb 
+					y2=yb
+				end
 			end
 		end
-		
-		
+		cclog("spriteindex:%f   end：%f    %f   %f    %f   ",spriteindex,x1,y1,x2,y2)
+		--if isConnection(tabel,x1,y1,x2,y2) then
+			tabel[x1][y1]=spriteindex
+			tabel[x2][y2]=spriteindex
+		--end
 	end
+	print_r(tabel)
 
-	print_lua_table(tab)
-	print_r(tab)
 end
+
+
 --yunfeng log
 function print_r(root)
+	-- local print = print
+	-- local tconcat = table.concat
+	-- local tinsert = table.insert
+	-- local srep = string.rep
+	-- local type = type
+	-- local pairs = pairs
+	-- local tostring = tostring
+	-- local next = next
+	
+	-- local cache = {  [root] = "." }
+	-- local function _dump(t,space,name)
+		-- local temp = {}
+		-- for k,v in pairs(t) do
+			-- local key = tostring(k)
+			-- if cache[v] then
+				-- tinsert(temp,"     +    " .. key .. " {" .. cache[v].."}")
+			-- elseif type(v) == "table" then
+				-- local new_key = name .. "." .. key
+				-- cache[v] = new_key
+				-- tinsert(temp,"\n+     " .. key .."\n   ".. _dump(v,space .. (next(t,k) and "|" or " " ).. srep(" ",#key),new_key))
+			-- else
+				-- tinsert(temp,"     +   " .. key .. " ==>" .. tostring(v))
+			-- end
+		-- end
+		-- return tconcat(temp,"\n"..space)
+	-- end
 	local print = print
 	local tconcat = table.concat
 	local tinsert = table.insert
@@ -231,14 +338,17 @@ function print_r(root)
 			elseif type(v) == "table" then
 				local new_key = name .. "." .. key
 				cache[v] = new_key
-				tinsert(temp,"\n+     " .. key .."\n   ".. _dump(v,space .. (next(t,k) and "|" or " " ).. srep(" ",#key),new_key))
+				tinsert(temp,"\n" .. "".. _dump(v,space .. (next(t,k) and "" or " " ).. srep("",#key),new_key))
 			else
-				tinsert(temp,"     +   " .. key .. " ==>" .. tostring(v))
+				tinsert(temp,"\t" ..  "" .. tostring(v))
 			end
 		end
-		return tconcat(temp,"\n"..space)
+		return tconcat(temp,""..space)
 	end
-	print(_dump(root, "",""))
+	file = io.open("src/a.txt","w")
+	file:write(string.format(_dump(root, "","")))
+	file:close()
+	--print(_dump(root, "",""))
 end
 
 

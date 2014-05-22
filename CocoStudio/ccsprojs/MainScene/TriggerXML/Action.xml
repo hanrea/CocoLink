@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root Type="Scene">
   <ActionList>
+		<Action ClassName="CreatLeaveFromJson" Name="CreatLeaveFromJson" CHName="根据数据初始化关卡（CreatLeaveFromJson）"/>
+	<Action ClassName="RegisterClickNummber" Name="RegisterClickNummber" CHName="处理点击Item次数（TriggerState）"/>
+	<Action ClassName="ClearItem" Name="ClearItem" CHName="清理Item"/>
+	<Action ClassName="moveWidget" Name="moveWidget" CHName="移动UI节点（moveWidget）"/>
+	<Action ClassName="moveWidget" Name="moveWidget" CHName="移动UI节点（moveWidget）"/>
+	
     <Action ClassName="PlayMusic" Name="PlayMusic" CHName="播放音乐（PlayMusic）"/>
 	<Action ClassName="TMoveTo" Name="MoveTo" CHName="移动到（MoveTo）"/>
 	<Action ClassName="TMoveBy" Name="MoveBy" CHName="移动（MoveBy）"/>
@@ -22,11 +28,7 @@
 	<Action ClassName="StopAllActions" Name="StopAllActions" CHName="停止所有动画"/>
 	<Action ClassName="TriggerState" Name="TriggerState" CHName="触发器状态（TriggerState）"/>
 	
-	<Action ClassName="CreatLeaveFromJson" Name="CreatLeaveFromJson" CHName="根据数据初始化关卡（TriggerState）"/>
-	<Action ClassName="RegisterClickNummber" Name="RegisterClickNummber" CHName="处理点击Item次数（TriggerState）"/>
-	<Action ClassName="ClearItem" Name="ClearItem" CHName="清理Item"/>
-	<Action ClassName="moveWidget" Name="moveWidget" CHName="移动UI节点（moveWidget）"/>
-	<Action ClassName="moveWidget" Name="moveWidget" CHName="移动UI节点（moveWidget）"/>
+
 	
   </ActionList>
 </Root>

@@ -19,13 +19,14 @@ end
 
 function TriggerTest:createGameScene()
 	cclog("createGameScene")
-    local node = ccs.SceneReader:getInstance():createNodeWithSceneFile("TriggerTest.json")
+    local node = ccs.SceneReader:getInstance():createNodeWithSceneFile("res/publish/MainScene.json")
     cclog("createGameSceneend")
 	return node
 end
 
 function TriggerTest:onTouchBegan(touch,event)
 	cclog("onTouchBegan")
+	  -- print(string.format("Paddle::onTouchMoved , x = %f, y = %f",touch:getLocation().x, touch:getLocation().y))
     ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHBEGAN)
 	 ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ALLTOUCH)
     return true
@@ -99,13 +100,20 @@ function TriggerTest.create()
             end
         end
         layer:registerScriptHandler(onNodeEvent)
+		--键盘监听事件
+		local function onKeyReleased(keyCode, event)
+            local label = event:getCurrentTarget()
+            if keyCode == cc.KeyCode.KEY_F5 then
+				package.loaded["src/cocolink.lua"] = nil  
+				require("src/cocolink.lua")
+				cclog("f555555555555")
+            end
+        end
+        local listener = cc.EventListenerKeyboard:create()
+        listener:registerScriptHandler(onKeyReleased, cc.Handler.EVENT_KEYBOARD_RELEASED )
 		
-		local function onKeyBoardEvent(KeyCode)
-			if KeyCode== KEY_F5 then
-				cclog("f5ff5f5f5ff5f5f5f")
-			end
-		end
-		layer:registerScriptHandler(onKeyBoardEvent,cc.EVENT_KEYBOARD)
+		local eventDispatcher = layer:getEventDispatcher()
+        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
     end
 	cclog("creatend")
     return layer

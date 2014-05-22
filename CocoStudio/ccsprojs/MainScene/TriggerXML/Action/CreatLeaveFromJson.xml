@@ -1,7 +1,21 @@
 ﻿<?xml version="1.0" standalone="yes" ?>
 <Root>
-  <Item Type="NodeTag" Name="NodeTag" CHName = "被添加到节点" Key = "Tag" Default="10000" />
-  <Item Type="DoubleUpDown" Name="SkewX" CHName = "关卡文件节点" Key = "SkewX" Default="1.0"/>
-  <Item Type="DoubleUpDown" Name="SkewY" CHName = "关卡" Key = "SkewY" Default="1.0"/>
-  <Item Type="DoubleUpDown" Name="Duration" CHName = "持续时间" Key = "Duration" Default="1.0"/>
+  <Item Type="NodeTag" Name="NodeTag" CHName = "被添加到节点" Key = "NodeTag" Default="10000" />
+  <Item Type="TextBox" Name="LeaveFile" CHName = "关卡文件名" Key = "LeaveFile" Default="res/leave.txt"/>
+  
+  <Item Type="IntegerUpDown" Name="Row" CHName = "行数" Key = "Row" Default="8"/>
+  <Item Type="IntegerUpDown" Name="Col" CHName = "列数" Key = "Col" Default="8"/>
+  
+   <Item Type="DoubleUpDown" Name="startX" CHName = "起始坐标X" Key = "startX" Default="200"/>
+  <Item Type="DoubleUpDown" Name="startY" CHName = "起始坐标Y" Key = "startY" Default="40"/>
+  
+   <Item Type="DoubleUpDown" Name="ItemWidth" CHName = "单元宽度" Key = "ItemWidth" Default="80"/>
+  <Item Type="DoubleUpDown" Name="Itemheigth" CHName = "单元高度" Key = "Itemheigth" Default="80"/>
+  
+  <Item Type="DoubleUpDown" Name="ScaleX" CHName = "缩放X" Key = "ScaleX" Default="1.0"/>
+  <Item Type="DoubleUpDown" Name="ScaleY" CHName = "缩放Y" Key = "ScaleY" Default="1.0"/>
+
+   
+   
 </Root>
+
