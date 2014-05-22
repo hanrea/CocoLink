@@ -64,11 +64,11 @@
             },
             {
               "key": "ItemWidth",
-              "value": 40
+              "value": 38
             },
             {
               "key": "Itemheigth",
-              "value": 40
+              "value": 38
             },
             {
               "key": "ScaleX",
@@ -84,7 +84,7 @@
       "conditions": [],
       "events": [
         {
-          "id": 0
+          "id": 4
         }
       ],
       "id": 0,

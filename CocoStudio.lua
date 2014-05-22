@@ -3,7 +3,7 @@ require "extern"
 
 ccs = ccs or {}
 
-function ccs.sendTriggerEvent(event)
+function ccs.sendTriggerEvent(event,touch)
     local triggerObjArr = ccs.TriggerMng.getInstance():get(event)
     
     if nil == triggerObjArr then
@@ -12,8 +12,8 @@ function ccs.sendTriggerEvent(event)
 
     for i = 1, table.getn(triggerObjArr) do
         local triObj = triggerObjArr[i]
-        if nil ~= triObj and triObj:detect() then
-            triObj:done()
+        if nil ~= triObj and triObj:detect(event,touch) then
+            triObj:done(event,touch)
         end
     end
 end
@@ -103,7 +103,7 @@ function ccs.TriggerObj:init()
     self._vInt = {}
 end
 
-function ccs.TriggerObj:detect()
+function ccs.TriggerObj:detect(event,touch)
     if (not self._enable) or (table.getn(self._cons) == 0) then
         return true
     end 
@@ -113,13 +113,13 @@ function ccs.TriggerObj:detect()
     for i = 1 , table.getn(self._cons) do
         obj = self._cons[i]
         if nil ~= obj and nil ~= obj.detect then
-            ret = ret and obj:detect()
+            ret = ret and obj:detect(event,touch)
         end
     end
     return ret
 end
 
-function ccs.TriggerObj:done()
+function ccs.TriggerObj:done(event,touch)
     if (not self._enable) or (table.getn(self._acts) == 0) then
         return
     end
@@ -128,7 +128,7 @@ function ccs.TriggerObj:done()
     for i = 1, table.getn(self._acts) do
         obj = self._acts[i]
         if nil ~= obj and obj.done then
-            obj:done()
+            obj:done(event,touch)
         end
     end
 end

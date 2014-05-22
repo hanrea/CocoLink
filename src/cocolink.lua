@@ -24,32 +24,6 @@ function TriggerTest:createGameScene()
 	return node
 end
 
-function TriggerTest:onTouchBegan(touch,event)
-	cclog("onTouchBegan")
-	  -- print(string.format("Paddle::onTouchMoved , x = %f, y = %f",touch:getLocation().x, touch:getLocation().y))
-    ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHBEGAN)
-	 ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ALLTOUCH)
-    return true
-end
-
-function TriggerTest:onTouchMoved(touch,event)
-	cclog("onTouchMoved")
-    ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHMOVED)
-	 ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ALLTOUCH)
-end
-
-function TriggerTest:onTouchEnded(touch,event)
-	cclog("onTouchEnded")
-    ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHENDED)
-	 ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ALLTOUCH)
-end
-
-function TriggerTest:onTouchCancelled(touch,event)
-	cclog("onTouchCancelled")
-    ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHCANCELLED)
-	 ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ALLTOUCH)
-end
-
 function TriggerTest:onEnter()
 	cclog("onenter")
     local root = self:createGameScene()
@@ -58,10 +32,29 @@ function TriggerTest:onEnter()
         self._touchListener = nil
         local listener = cc.EventListenerTouchOneByOne:create()
         listener:setSwallowTouches(true)
-        listener:registerScriptHandler(self.onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN )
-        listener:registerScriptHandler(self.onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED )
-        listener:registerScriptHandler(self.onTouchEnded,cc.Handler.EVENT_TOUCH_ENDED )
-        listener:registerScriptHandler(self.onTouchCancelled,cc.Handler.EVENT_TOUCH_CANCELLED )
+			
+		local function onTouchBegan(touch,event)
+			cclog("touchbegin")
+            ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHBEGAN,touch)
+            return true
+        end
+
+        local function onTouchMoved(touch,event)
+            ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHMOVED,touch)
+        end
+
+        local function onTouchEnded(touch,event)
+            ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHENDED,touch)
+        end
+
+        local function onTouchCancelled(touch,event)
+            ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_TOUCHCANCELLED,touch)
+        end
+
+        listener:registerScriptHandler(onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN )
+        listener:registerScriptHandler(onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED )
+        listener:registerScriptHandler(onTouchEnded,cc.Handler.EVENT_TOUCH_ENDED )
+        listener:registerScriptHandler(onTouchCancelled,cc.Handler.EVENT_TOUCH_CANCELLED )
         local eventDispatcher = self:getEventDispatcher()
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
         self._touchListener = listener

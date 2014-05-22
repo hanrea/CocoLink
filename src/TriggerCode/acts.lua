@@ -18,7 +18,7 @@ function TMoveBy:init()
     return true
 end
 
-function TMoveBy:done(event)
+function TMoveBy:done(event,touch)
     local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
     if nil == node then
         return
@@ -81,7 +81,7 @@ function TScaleTo:init()
     return true
 end
 
-function TScaleTo:done(event)
+function TScaleTo:done(event,touch)
     local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
     if nil == node then
         return
@@ -133,7 +133,7 @@ function TriggerState:init()
     return true
 end
 
-function TriggerState:done(event)
+function TriggerState:done(event,touch)
     local obj = ccs.TriggerMng.getInstance():getTriggerObj(self._id)
     if nil ~= obj then
         if self._state == 0 then
@@ -201,8 +201,10 @@ function CreatLeaveFromJson:init()
     return true
 end
 
-function CreatLeaveFromJson:done()
-
+function CreatLeaveFromJson:done(event,touch)
+	if touch~=nil then
+		cclog("touc ==>  %s  ",touch:getLocation().x)
+	end
 	tabel= {}
 	for line in io.lines("src/leave.txt") do
 		splitlist = {}
@@ -211,7 +213,7 @@ function CreatLeaveFromJson:done()
 	end
 
 	node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
-	if nil == node then
+	 if nil == node then
         return
     end
 	cclog("%s   %s   ",self._Row,self._Col)
@@ -262,6 +264,8 @@ end
 function CreatLeaveFromJson:removeAll()
     print("CreatLeaveFromJson::removeAll")
 end
+
+
 
 ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
 

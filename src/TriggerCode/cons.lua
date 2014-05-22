@@ -17,7 +17,7 @@ function NodeInRect:init()
     return true
 end
 
-function NodeInRect:detect()
+function NodeInRect:detect(event,touch)
     local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
     if nil ~= node and math.abs(node:getPositionX() - self._origin.x) <= self._size.width and math.abs(node:getPositionY() - self._origin.y) <= self._size.height then
         return true
