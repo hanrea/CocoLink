@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" standalone="yes" ?>
+<Root>
+  <Item Type="NodeTag" Name="Node Tag" CHName="所属节点" Key = "NodeTag" Default="10000"/>
+  <Item Type="IntegerUpDown" Name="WidgetTag" CHName="控件Tag" Key = "WidgetTag" Default="1"/>
+  <Item Type="TextBox" Name="WidgetName" CHName="控件Name" Key = "WidgetName" Default=""/>
+
+</Root>
