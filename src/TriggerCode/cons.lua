@@ -84,7 +84,7 @@ function WidgetIsClick:detect(event,touch)
 		end
 	end
 	if nil~= widget then
-		if touch:getLocation().x > widget:getPositionX() and touch:getLocation().y > widget:getPositionY() and   touch:getLocation().x +widget:getSize().width > widget:getPositionX() and touch:getLocation().y +widget:getSize().height> widget:getPositionY() 
+		if touch:getLocation().x > widget:getPositionX() and touch:getLocation().y > widget:getPositionY() and   touch:getLocation().x +widget:getSize().width > widget:getPositionX() and touch:getLocation().y +widget:getSize().height> widget:getPositionY()  then
 			return true
 		end
 	end
