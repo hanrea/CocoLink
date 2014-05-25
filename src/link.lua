@@ -1,50 +1,66 @@
+--测试函数
+function testcreat()
 
-function testcreat(tabelRow,tabelCol,NumbelMix,NumbelMax)
-	NumbelMix = math.ceil(NumbelMix) or 0
-	NumbelMax = math.ceil(NumbelMax) or 100
-	local tab={}
-	math.randomseed(os.time())
-	for i=1,tabelRow do
-		tabRow={}
-		for j=1,tabelCol do
-			tabRow[j]=0
-			--tabRow[j]=math.random(NumbelMix,NumbelMax)
-			--print(math.random(NumbelMix,NumbelMax))
-			--print("tab["..i.."]["..j.."]===>"..tab[i][j])
-		end
-		tab[i]=tabRow
+	local tab= {}
+	for line in io.lines("src/leave.txt") do
+		splitlist = {}
+		string.gsub(line, '[^,]+', function(w) table.insert(splitlist, w) end )
+		table.insert(tab, splitlist)
 	end
+	
+	
+	NumbelMix = 8--math.ceil(NumbelMix) or 0
+	NumbelMax = 8 --math.ceil(NumbelMax) or 100
+    --随机生成tabel
+	-- math.randomseed(os.time())
+	-- for i=1,tabelRow do
+		-- tabRow={}
+		-- for j=1,tabelCol do
+			-- tabRow[j]=0
+			-- --tabRow[j]=math.random(NumbelMix,NumbelMax)
+			-- --print(math.random(NumbelMix,NumbelMax))
+			-- --print("tab["..i.."]["..j.."]===>"..tab[i][j])
+		-- end
+		-- tab[i]=tabRow
+	-- end
 	--print_r(tab)
 	---test
-	print(isConnection(tab,1,1,1,1))--false
-	print(isConnection(tab,1,1,1,2))--true1
-	print(isConnection(tab,1,2,3,3))--true2
-	print(isConnection(tab,2,2,4,4))--true2
-	print(isConnection(tab,2,2,6,6))--true2	
-	
-	
+	print(isConnection(tab,2,2,4,2))
+	print(isConnection(tab,2,2,3,3))
+	print(isConnection(tab,3,4,4,7))
+	print(isConnection(tab,2,2,5,2))
+	print(isConnection(tab,7,3,7,5))
+	print(isConnection(tab,2,6,4,6))
+	print(isConnection(tab,4,7,4,5))
+	print(isConnection(tab,7,3,2,3))
 end
 
 
 
 ---------------
 ---判断入口
-function isConnection(tabel,x1,y1,x2,y2)
-	cclog("rukou %f    %f   %f    %f   ",x1,y1,x2,y2)
-	if  x1 ==x2 then
-		if y1==y2 then
+function isConnection(tabel,C1,R1,C2,R2)
+
+	cclog("rukou %s    %s   %s    %s   ",C1,R1,C2,R2)
+	if tonumber(tabel[R1][C1]) ~= tonumber(tabel[R2][C2]) then
+		cclog("不是一对")
+		return false
+	end
+	cclog("A(%s,%s):%s === B(%s,%s):%s",C1,R1,tabel[R1][C1], C2,R2,tabel[R2][C2])
+	if  C1 ==C2 then
+		if R1==R2 then
 			cclog("位置相同")
 			return false
 		end
 	end
-	if islineConnection(tabel,x1,y1,x2,y2) then
-		cclog("直线连接")
+	if islineConnection(tabel,C1,R1,C2,R2) then
+		cclog("\n 直线连接")
 		return true
-	elseif   isOneCornerConnection(tabel,x1,y1,x2,y2) then
-		cclog("一个折点")
+	elseif   isOneCornerConnection(tabel,C1,R1,C2,R2) then
+		cclog("\n 一个折点")
 		return true
-	elseif  isTwoCornerConnection(tabel,x1,y1,x2,y2) then
-		cclog("两次匹配")
+	elseif  isTwoCornerConnection(tabel,C1,R1,C2,R2) then
+		cclog("\n 两次匹配")
 		return true
 	else
 		cclog("无匹配数据50")
@@ -54,82 +70,99 @@ function isConnection(tabel,x1,y1,x2,y2)
 end
 
 ----单行
-function islineConnection(tabel,x1,y1,x2,y2)
-	cclog("islineConnection %s    %s   %s    %s   ",x1,y1,x2,y2)
+function islineConnection(tabel,C1,R1,C2,R2)
+	cclog("直连测试： %s    %s   %s    %s   ",C1,R1,C2,R2)
 	
 	local temp
-	if x1==x2 then
+	--同一列连接
+	if C1==C2 then
 		local i=1
-		temp = math.abs(y2-y1)
-		if y2>y1 then
+		temp = math.abs(R2-R1)
+		if R2>R1 then
+			--相邻
+			if R1+1 == R2 then
+				cclog("相邻")
+				return true
+			end
 			while i < temp do
-				if tabel[x1][y1+i] ~= 0 then
-					cclog("垂直直连中断66")
-					
+				if tonumber(tabel[R1+i][C1]) ~= 0 then
+					cclog("垂直直连中断")
 					return false
 				end
-				i=i+i
+				i=i+1
 			end
 			return true
 		else
+			--相邻
+			if R2+1 == R1 then
+				cclog("相邻")
+				return true
+			end
 			while i < temp do
-				if tabel[x1][y1-i] ~= 0 then
-					cclog("垂直直连中断74")
+				if tonumber(tabel[R1-i][C1]) ~= 0 then
+					cclog("垂直直连中断")
 					return false
 				end
-				i=i+i
+				i=i+1
 			end
 			return true
 		end
-		
 	end
-	if y1==y2 then
+	--同行连接
+	if R1==R2 then
 		local i=1
-		temp = math.abs(x2-x1)-1
-		cclog("yyyyyyy==86==%s  temp ==%s",y1,temp)
-		if x2>x1 then
+		temp = math.abs(C2-C1)
+		if C2>C1 then
+			--相邻
+			if C1+1 == C2 then
+				cclog("相邻")
+				return true
+			end
 			while i < temp do
-				cclog("====>  %s",i)
-				if tabel[x1+i][y1] ~= 0 then
-					cclog("直连失败95")
+				if tonumber(tabel[R1][C1+i]) ~= 0 then
+					cclog("水平直连失败95")
 					return false
 				end
-				i=i+i
+				i=i+1
 			end
 			return true
 		else
+			--相邻
+			if C2+1 == C1 then
+				return true
+			end
 			while i < temp do
 			cclog("====>  %s",i)
-				if tabel[x1-i][y1] ~= 0 then
-					cclog("直连失败104")
+				if tonumber(tabel[R1][C1-i])~= 0 then
+					cclog("水平直连失败104")
 					return false
 				end
-				i=i+i
+				i=i+1
 			end
 			return true
 		end
 		
 	end
-	cclog("直连失败112")
+	cclog("直连失败")
 	return false
 end
 
-function isOneCornerConnection(tabel,x1,y1,x2,y2)
+function isOneCornerConnection(tabel,C1,R1,C2,R2)
 		
-	--cclog("isOneCornerConnection %s    %s   %s    %s   ",x1,y1,x2,y2)
-	if tabel[x1][y2]==0 then
-		cclog("---------127")
-		if 	islineConnection(tabel,x1,y1,x1,y2) then 
+	cclog("isOneCornerConnection %s    %s   %s    %s   ",C1,R1,C2,R2)
+	if tonumber(tabel[R2][C1])==0 then
+		
+		if 	islineConnection(tabel,C1,R1,C1,R2) then 
 			cclog("---------129")
-			if	islineConnection(tabel,x2,y2,x1,y2) then
+			if	islineConnection(tabel,C2,R2,C1,R2) then
 				return true
 			end
 		end
 	end
-	if tabel[x2][y1]==0 then
+	if tonumber(tabel[R1][C2])==0 then
 		
-		if 	islineConnection(tabel,x1,y1,x2,y1) then
-			if islineConnection(tabel,x2,y2,x2,y1) then
+		if 	islineConnection(tabel,C1,R1,C2,R1) then
+			if islineConnection(tabel,C2,R2,C2,R1) then
 				cclog("---------139")
 				return true
 			end
@@ -140,29 +173,31 @@ function isOneCornerConnection(tabel,x1,y1,x2,y2)
 end
 
 
-function isTwoCornerConnection(tabel,x1,y1,x2,y2)
+function isTwoCornerConnection(tabel,C1,R1,C2,R2)
 
-	cclog("isTwoCornerConnection%s    %s   %s    %s   ",x1,y1,x2,y2)
+	cclog("isTwoCornerConnection%s    %s   %s    %s   ",C1,R1,C2,R2)
 	local i=0
-	--往左扫描
-	for i= x1-1,1,-1 do
-			cclog("158===%s==%s    %s   %s    %s   ",i,x1,y1,x2,y2)
-		if tabel[i][y1] ~=0 then
-			i=1
+	cclog("左扫开始")
+	for i= C1-1,1,-1 do
+			cclog("158===%s==%s    %s   %s    %s   ",i,C1,R1,C2,R2)
+			cclog("158%s ",tonumber(tabel[R1][i]) )
+		if tonumber(tabel[R1][i]) ~=0 then
+			--i=1
+			cclog("左扫184  %s  %s",i,tabel[R1][i])
 			break
-		elseif isOneCornerConnection(tabel,i,y1,x2,y2) then
-		cclog("左扫成功")
+		elseif isOneCornerConnection(tabel,i,R1,C2,R2) then
+			cclog("左扫成功")
 			return true
 		end
 	end
 	
 	--往上扫描
-	
-	for i=y1-1,1,-1 do
-		if tabel[x1][i]~= 0 then
-			i=1
+	cclog("上扫开始")
+	for i=R1-1,1,-1 do
+		if tonumber(tabel[i][C1])~= 0 then
+			--i=1
 			break
-		elseif isOneCornerConnection(tabel,x1,i,x2,y2) then
+		elseif isOneCornerConnection(tabel,C1,i,C2,R2) then
 		cclog("上扫成功")
 			return true
 		end
@@ -170,22 +205,22 @@ function isTwoCornerConnection(tabel,x1,y1,x2,y2)
 	
 	--往右扫描
 	
-	for i=x1+1,table.getn(tabel[y1]),1 do
-		if tabel[i][x1]~=0 then
-			i=table.getn(tabel[y1])
+	for i=C1+1,table.getn(tabel[R1]),1 do
+		if tonumber(tabel[i][C1])~=0 then
+			i=table.getn(tabel[R1])
 			break
-		elseif isOneCornerConnection(tabel,i,y1,x2,y2) then
+		elseif isOneCornerConnection(tabel,i,R1,C2,R2) then
 			return true
 		end
 	end
 	
 	--往下扫描
 	
-	for i=y1+1,table.getn(tabel),1 do
-		if tabel[x1][i]~=0 then
+	for i=R1+1,table.getn(tabel),1 do
+		if tonumber(tabel[i][C1])~=0 then
 		i=table.getn(tabel)
 		break
-		elseif isOneCornerConnection(tabel,x1,i,x2,y2) then
+		elseif isOneCornerConnection(tabel,C1,i,C2,R2) then
 			return true
 		end
 	end
@@ -208,39 +243,39 @@ function creatDoubleRandomTable(tabelRow,tabelCol,NumbelMix,NumbelMax)
 	
 	while total > 0 do
 		--记录两个点的位置
-		local x1= 0
-		local y1= 0
-		local x2= 0
-		local y2= 0
+		local C1= 0
+		local R1= 0
+		local C2= 0
+		local R2= 0
 		--图像索引
 		local spriteindex = math.random(NumbelMix,NumbelMax)
 		
 		--模拟添加第一个点
-		while x1==0  do
-			while y1==0  do
+		while C1==0  do
+			while R1==0  do
 				local xa= math.random(2,tabelCol-1)
 				local ya= math.random(2,tabelRow-1)
 				if tabel[ya][xa] ==0 then
-					x1=xa 
-					y1=ya
+					C1=xa 
+					R1=ya
 				end
 			end
 		end
 		 --模拟添加第er个点
-		while x2==0 do
-			while y2==0 do
+		while C2==0 do
+			while R2==0 do
 				local xb= math.random(2,tabelCol-1)
 				local yb= math.random(2,tabelRow-1)
 				if tabel[yb][xb] ==0 then
-						x2=xb 
-						y2=yb
+						C2=xb 
+						R2=yb
 				end
 			end
 		end
-		cclog("spriteindex:%s   end：%s %s %s %s ",spriteindex,x1,y1,x2,y2)
-		--if isConnection(tabel,x1,y1,x2,y2) then
-			tabel[y1][x1]=spriteindex
-			tabel[y2][x2]=spriteindex
+		cclog("spriteindex:%s   end：%s %s %s %s ",spriteindex,C1,R1,C2,R2)
+		--if isConnection(tabel,C1,R1,C2,R2) then
+			tabel[R1][C1]=spriteindex
+			tabel[R2][C2]=spriteindex
 			total = total -1
 			cclog("===========  %s   ==============",total)
 			if total ==0 then
@@ -315,9 +350,9 @@ function print_r(root)
 		return tconcat(temp,""..space)
 	end
 	
-	print(_dump(root, "",""))
+	--print(_dump(root, "",""))
 	
 	local file = io.open("src/leave.txt","a")
-	 --file:write(string.format(_dump(root, "","").."\n\n==========================="..os.date().."==========================\n"))
+	 file:write(string.format(_dump(root, "","").."\n\n==========================="..os.date().."==========================\n"))
 	 file:close()
 end
