@@ -60,7 +60,7 @@
             },
             {
               "key": "startY",
-              "value": 0
+              "value": 40
             },
             {
               "key": "ItemWidth",
@@ -84,11 +84,22 @@
       "conditions": [],
       "events": [
         {
-          "id": 4
+          "id": 0
         }
       ],
       "id": 0,
-      "name": "Trigger0"
+      "name": "初始化游戏数据"
+    },
+    {
+      "actions": [],
+      "conditions": [],
+      "events": [
+        {
+          "id": 4
+        }
+      ],
+      "id": 1,
+      "name": "连接单元"
     }
   ],
   "Version": "1.4.0.1",

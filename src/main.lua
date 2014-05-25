@@ -43,15 +43,7 @@ local function main()
 	--creatTabelfromeFile()
 	--end
 	--creatNullTabel(10,10)
-     local sceneGame = cc.Scene:create()
-	sceneGame:addChild(TriggerTest.create())
-
-	if cc.Director:getInstance():getRunningScene() then
-		cc.Director:getInstance():replaceScene(sceneGame)
-	else
-		cc.Director:getInstance():runWithScene(sceneGame)
-	end
-
+   
 end
 
 ----------------±≥æ∞“Ù¿÷≤•∑≈--------------------

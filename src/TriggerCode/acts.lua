@@ -266,10 +266,7 @@ function CreatLeaveFromJson:removeAll()
     print("CreatLeaveFromJson::removeAll")
 end
 
-
-
 ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
-
 ccs.registerTriggerClass("TScaleTo",TScaleTo.new)
 ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
 ccs.registerTriggerClass("TriggerState",TriggerState.new)

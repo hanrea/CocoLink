@@ -7,8 +7,8 @@
 	<Condition ClassName="NodeVisible" Name="IsNodeVisible" CHName="节点是否显示（IsNodeVisible）"/>
 	<Condition ClassName="RectangleCollisionTest" Name="RectangleCollisionTest" CHName="节点碰撞检测（RectangleCollisionTest）"/>
 	
-	<Condition ClassName="WidgetIsClick" Name="WidgetIsClick" CHName="按钮被点击"/>
-	<Condition ClassName="NodeIsClick" Name="NodeIsClick" CHName="按钮被点击"/>
+	<Condition ClassName="WidgetIsClick" Name="WidgetIsClick" CHName="Widget被点击"/>
+	<Condition ClassName="NodeIsClick" Name="NodeIsClick" CHName="Node被点击"/>
 	<Condition ClassName="IsSecondTimeSelected" Name="IsSecondTimeSelected" CHName="第二次选中"/>
 	<Condition ClassName="IsSecondTimeSelected" Name="IsSecondTimeSelected" CHName="第二次选中"/>
 	
