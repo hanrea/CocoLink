@@ -1,3 +1,5 @@
 [
-  "publish\\MainScene.json"
+  "publish/GUI/button.png",
+  "publish\\MainScene.json",
+  "publish/StartPage_1.json"
 ]

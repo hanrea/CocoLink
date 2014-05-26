@@ -26,6 +26,34 @@
       "zorder": 1,
       "gameobjects": [],
       "components": []
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10009,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 43.63885498046875,
+      "y": -7.0833320617675781,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "publish/StartPage_1.json",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
     }
   ],
   "CanvasSize": {
@@ -34,13 +62,24 @@
   },
   "Triggers": [
     {
+      "actions": [],
+      "conditions": [],
+      "events": [
+        {
+          "id": 0
+        }
+      ],
+      "id": 0,
+      "name": "初始化游戏数据"
+    },
+    {
       "actions": [
         {
           "classname": "CreatLeaveFromJson",
           "dataitems": [
             {
               "key": "NodeTag",
-              "value": 10009
+              "value": "10000"
             },
             {
               "key": "LeaveFile",
@@ -52,11 +91,11 @@
             },
             {
               "key": "Col",
-              "value": 10
+              "value": 8
             },
             {
               "key": "startX",
-              "value": 100
+              "value": 200
             },
             {
               "key": "startY",
@@ -64,35 +103,42 @@
             },
             {
               "key": "ItemWidth",
-              "value": 38
+              "value": 80
             },
             {
               "key": "Itemheigth",
-              "value": 38
+              "value": 80
             },
             {
               "key": "ScaleX",
-              "value": 0.5
+              "value": 1
             },
             {
               "key": "ScaleY",
-              "value": 0.5
+              "value": 1
             }
           ]
         }
       ],
-      "conditions": [],
-      "events": [
+      "conditions": [
         {
-          "id": 0
+          "classname": "WidgetIsClick",
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10009
+            },
+            {
+              "key": "WidgetTag",
+              "value": 3
+            },
+            {
+              "key": "WidgetName",
+              "value": "btn_start"
+            }
+          ]
         }
       ],
-      "id": 0,
-      "name": "初始化游戏数据"
-    },
-    {
-      "actions": [],
-      "conditions": [],
       "events": [
         {
           "id": 4

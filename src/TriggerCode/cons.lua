@@ -74,21 +74,29 @@ end
 
 function WidgetIsClick:detect(event,touch)
 
-    local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
+	cclog("  touch :  %s   %s  ",touch:getLocation().x,touch:getLocation().y )
+		  
+   local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
+   需要转换为UI节点
 	local widget=nil
+cclog("1111") 
     if nil~= node then
+			
 		if nil ~= self._WidgetTag then
-			widget=UIHelper:seekWidgetByTag(node, childName)
+			widget=ccui.Helper:seekWidgetByTag(node, self._WidgetTag)
 		elseif nil ~= self._WidgetName then
-			widget=UIHelper:seekWidgetByName(node, childName)
+			widget=ccui.Helper:seekWidgetByName(node, self._WidgetName)
 		end
 	end
+	print(widget)
 	if nil~= widget then
-		if touch:getLocation().x > widget:getPositionX() and touch:getLocation().y > widget:getPositionY() and   touch:getLocation().x +widget:getSize().width > widget:getPositionX() and touch:getLocation().y +widget:getSize().height> widget:getPositionY()  then
+		cclog("333") 
+		if touch:getLocation().x > widget:getPosition().convertToWorldSpace().x and touch:getLocation().y > widget:getPosition().convertToWorldSpace().y and   touch:getLocation().x +widget:getSize().width > widget:getPosition().convertToWorldSpace().x  and touch:getLocation().y +widget:getSize().height> widget:getPosition().convertToWorldSpace().y   then
+			cclog("444") 
 			return true
 		end
 	end
-	
+
     return false
 end
 

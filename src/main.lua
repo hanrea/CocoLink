@@ -36,10 +36,10 @@ local function main()
     end
     ---------------
 
-	--require "src/cocolink"
-   require "src/link"
+	require "src/cocolink"
+   --require "src/link"
 	--for i=1,1000 do
-	testcreat()
+	--testcreat()
 	--creatDoubleRandomTable(6,6,1,9)
 	--creatTabelfromeFile()
 	--end
