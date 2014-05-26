@@ -99,7 +99,6 @@ function TriggerTest.create()
             if keyCode == cc.KeyCode.KEY_F5 then
 				package.loaded["src/cocolink.lua"] = nil  
 				require("src/cocolink.lua")
-				cclog("f555555555555")
             end
         end
         local listener = cc.EventListenerKeyboard:create()

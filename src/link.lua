@@ -2,29 +2,12 @@
 function testcreat()
 
 	local tab= {}
-	for line in io.lines("src/leave.txt") do
+	for line in io.lines("src/TestLeave.txt") do
 		splitlist = {}
 		string.gsub(line, '[^,]+', function(w) table.insert(splitlist, w) end )
 		table.insert(tab, splitlist)
 	end
-	
-	
-	NumbelMix = 8--math.ceil(NumbelMix) or 0
-	NumbelMax = 8 --math.ceil(NumbelMax) or 100
-    --随机生成tabel
-	-- math.randomseed(os.time())
-	-- for i=1,tabelRow do
-		-- tabRow={}
-		-- for j=1,tabelCol do
-			-- tabRow[j]=0
-			-- --tabRow[j]=math.random(NumbelMix,NumbelMax)
-			-- --print(math.random(NumbelMix,NumbelMax))
-			-- --print("tab["..i.."]["..j.."]===>"..tab[i][j])
-		-- end
-		-- tab[i]=tabRow
-	-- end
-	--print_r(tab)
-	---test
+
 	print(isConnection(tab,2,2,4,2))
 	print(isConnection(tab,2,2,3,3))
 	print(isConnection(tab,3,4,4,7))
