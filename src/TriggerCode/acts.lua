@@ -1,3 +1,4 @@
+
 require "CocoStudio"
 
 local TMoveBy = class("TMoveBy")

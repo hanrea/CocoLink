@@ -24,30 +24,30 @@ end
 ---判断入口
 function isConnection(tabel,C1,R1,C2,R2)
 
-	cclog("rukou %s    %s   %s    %s   ",C1,R1,C2,R2)
+	--cclog("rukou %s    %s   %s    %s   ",C1,R1,C2,R2)
 	if tabel ~= nil then
 		if tonumber(tabel[R1][C1]) ~= tonumber(tabel[R2][C2]) then
-			cclog("不是一对")
+			--cclog("不是一对")
 			return false
 		end
-		cclog("A(%s,%s):%s === B(%s,%s):%s",C1,R1,tabel[R1][C1], C2,R2,tabel[R2][C2])
+		--cclog("A(%s,%s):%s === B(%s,%s):%s",C1,R1,tabel[R1][C1], C2,R2,tabel[R2][C2])
 		if  C1 ==C2 then
 			if R1==R2 then
-				cclog("位置相同")
+				--cclog("位置相同")
 				return false
 			end
 		end
 		if islineConnection(tabel,C1,R1,C2,R2) then
-			cclog("\n 直线连接")
+			--cclog("\n 直线连接")
 			return true
 		elseif   isOneCornerConnection(tabel,C1,R1,C2,R2) then
-			cclog("\n 一个折点")
+			--cclog("\n 一个折点")
 			return true
 		elseif  isTwoCornerConnection(tabel,C1,R1,C2,R2) then
-			cclog("\n 两次匹配")
+			--cclog("\n 两次匹配")
 			return true
 		else
-			cclog("无匹配数据50")
+			--cclog("无匹配数据50")
 			return false
 		end
 	end
@@ -55,7 +55,7 @@ end
 
 ----单行
 function islineConnection(tabel,C1,R1,C2,R2)
-	cclog("直连测试： %s    %s   %s    %s   ",C1,R1,C2,R2)
+	--cclog("直连测试： %s    %s   %s    %s   ",C1,R1,C2,R2)
 	
 	local temp
 	--同一列连接
@@ -65,12 +65,12 @@ function islineConnection(tabel,C1,R1,C2,R2)
 		if R2>R1 then
 			--相邻
 			if R1+1 == R2 then
-				cclog("相邻")
+				--cclog("相邻")
 				return true
 			end
 			while i < temp do
 				if tonumber(tabel[R1+i][C1]) ~= 0 then
-					cclog("垂直直连中断")
+					--cclog("垂直直连中断")
 					return false
 				end
 				i=i+1
@@ -79,12 +79,12 @@ function islineConnection(tabel,C1,R1,C2,R2)
 		else
 			--相邻
 			if R2+1 == R1 then
-				cclog("相邻")
+				--cclog("相邻")
 				return true
 			end
 			while i < temp do
 				if tonumber(tabel[R1-i][C1]) ~= 0 then
-					cclog("垂直直连中断")
+					--cclog("垂直直连中断")
 					return false
 				end
 				i=i+1
@@ -99,12 +99,12 @@ function islineConnection(tabel,C1,R1,C2,R2)
 		if C2>C1 then
 			--相邻
 			if C1+1 == C2 then
-				cclog("相邻")
+				--cclog("相邻")
 				return true
 			end
 			while i < temp do
 				if tonumber(tabel[R1][C1+i]) ~= 0 then
-					cclog("水平直连失败95")
+					--cclog("水平直连失败95")
 					return false
 				end
 				i=i+1
@@ -116,9 +116,9 @@ function islineConnection(tabel,C1,R1,C2,R2)
 				return true
 			end
 			while i < temp do
-			cclog("====>  %s",i)
+			--cclog("====>  %s",i)
 				if tonumber(tabel[R1][C1-i])~= 0 then
-					cclog("水平直连失败104")
+					--cclog("水平直连失败104")
 					return false
 				end
 				i=i+1
@@ -127,17 +127,17 @@ function islineConnection(tabel,C1,R1,C2,R2)
 		end
 		
 	end
-	cclog("直连失败")
+	--cclog("直连失败")
 	return false
 end
 
 function isOneCornerConnection(tabel,C1,R1,C2,R2)
 		
-	cclog("isOneCornerConnection %s    %s   %s    %s   ",C1,R1,C2,R2)
+	--cclog("isOneCornerConnection %s    %s   %s    %s   ",C1,R1,C2,R2)
 	if tonumber(tabel[R2][C1])==0 then
 		
 		if 	islineConnection(tabel,C1,R1,C1,R2) then 
-			cclog("---------129")
+			--cclog("---------129")
 			if	islineConnection(tabel,C2,R2,C1,R2) then
 				return true
 			end
@@ -147,42 +147,42 @@ function isOneCornerConnection(tabel,C1,R1,C2,R2)
 		
 		if 	islineConnection(tabel,C1,R1,C2,R1) then
 			if islineConnection(tabel,C2,R2,C2,R1) then
-				cclog("---------139")
+				--cclog("---------139")
 				return true
 			end
 		end
 	end
-	cclog("一折失败138")
+	--cclog("一折失败138")
 	return false
 end
 
 
 function isTwoCornerConnection(tabel,C1,R1,C2,R2)
 
-	cclog("isTwoCornerConnection%s    %s   %s    %s   ",C1,R1,C2,R2)
+	--cclog("isTwoCornerConnection%s    %s   %s    %s   ",C1,R1,C2,R2)
 	local i=0
-	cclog("左扫开始")
+	--cclog("左扫开始")
 	for i= C1-1,1,-1 do
-			cclog("158===%s==%s    %s   %s    %s   ",i,C1,R1,C2,R2)
-			cclog("158%s ",tonumber(tabel[R1][i]) )
+			--cclog("158===%s==%s    %s   %s    %s   ",i,C1,R1,C2,R2)
+			--cclog("158%s ",tonumber(tabel[R1][i]) )
 		if tonumber(tabel[R1][i]) ~=0 then
 			--i=1
-			cclog("左扫184  %s  %s",i,tabel[R1][i])
+			--cclog("左扫184  %s  %s",i,tabel[R1][i])
 			break
 		elseif isOneCornerConnection(tabel,i,R1,C2,R2) then
-			cclog("左扫成功")
+			--cclog("左扫成功")
 			return true
 		end
 	end
 	
 	--往上扫描
-	cclog("上扫开始")
+	--cclog("上扫开始")
 	for i=R1-1,1,-1 do
 		if tonumber(tabel[i][C1])~= 0 then
 			--i=1
 			break
 		elseif isOneCornerConnection(tabel,C1,i,C2,R2) then
-		cclog("上扫成功")
+		--cclog("上扫成功")
 			return true
 		end
 	end
@@ -220,7 +220,7 @@ function creatDoubleRandomTable(tabelRow,tabelCol,NumbelMix,NumbelMax)
 	local total = tabelRow * tabelCol /2
 	tabelRow= math.ceil(tabelRow/2)*2+2
 	tabelCol= math.ceil(tabelCol/2)*2+2
-	cclog(" %s    %s   ",tabelRow,tabelCol)
+	--cclog(" %s    %s   ",tabelRow,tabelCol)
 	
 	local tabel=creatNullTabel(tabelRow,tabelCol)
 	math.randomseed(os.time())
@@ -256,12 +256,12 @@ function creatDoubleRandomTable(tabelRow,tabelCol,NumbelMix,NumbelMax)
 				end
 			end
 		end
-		cclog("spriteindex:%s   end：%s %s %s %s ",spriteindex,C1,R1,C2,R2)
+		--cclog("spriteindex:%s   end：%s %s %s %s ",spriteindex,C1,R1,C2,R2)
 		--if isConnection(tabel,C1,R1,C2,R2) then
 			tabel[R1][C1]=spriteindex
 			tabel[R2][C2]=spriteindex
 			total = total -1
-			cclog("===========  %s   ==============",total)
+			--cclog("===========  %s   ==============",total)
 			if total ==0 then
 				print_r(tabel)
 			end

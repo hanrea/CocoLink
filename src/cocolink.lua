@@ -98,8 +98,15 @@ function TriggerTest.create()
 		local function onKeyReleased(keyCode, event)
             local label = event:getCurrentTarget()
             if keyCode == cc.KeyCode.KEY_F5 then
-				package.loaded["src/cocolink.lua"] = nil
-				require("src/cocolink.lua")
+				local loadedModule = package.loaded
+				for moduleName,_ in pairs(loadedModule) do
+					if string.find(moduleName,"src.") ~= nil then
+						package.loaded[moduleName] = nil 
+							cclog("vvv%s",moduleName)
+						require(moduleName)
+					end
+				end
+
             end
         end
         local listener = cc.EventListenerKeyboard:create()
