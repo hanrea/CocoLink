@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\CocoLink\CocoStudio\ccsprojs\StartPage</ProjectDir>
+  <ProjectDir>E:\Git\CocoLink\CocoStudio\ccsprojs\StartPage</ProjectDir>
   <Version>1.4.0.1</Version>
-  <Resources>D:\CocoLink\CocoStudio\assets</Resources>
+  <Resources>E:\Git\CocoLink\CocoStudio\assets</Resources>
   <Name>StartPage</Name>
   <JsonFileName>StartPage.json</JsonFileName>
-  <JsonFolder>D:\CocoLink\CocoStudio\ccsprojs\StartPage\Json</JsonFolder>
+  <JsonFolder>E:\Git\CocoLink\CocoStudio\ccsprojs\StartPage\Json</JsonFolder>
   <JsonList>
     <string>StartPage_1.json</string>
   </JsonList>
@@ -13,7 +13,7 @@
     <Width>480</Width>
     <Height>320</Height>
   </CanvasSize>
-  <filePath>D:\CocoLink\CocoStudio\ccsprojs\StartPage\StartPage.xml.ui</filePath>
+  <filePath>E:\Git\CocoLink\CocoStudio\ccsprojs\StartPage\StartPage.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList />

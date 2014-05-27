@@ -35,19 +35,10 @@ local function main()
 	   cclog("isstrat")
     end
     ---------------
-
 	require "src/cocolink"
-   --require "src/link"
-	--for i=1,1000 do
-	--testcreat()
-	--creatDoubleRandomTable(6,6,1,9)
-	--creatTabelfromeFile()
-	--end
-	--creatNullTabel(10,10)
-   
 end
 
-----------------±≥æ∞“Ù¿÷≤•∑≈--------------------
+---------------------------±≥æ∞“Ù¿÷≤•∑≈----------------------------------
 
     -- local bgMusicPath = nil 
     -- if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) then
@@ -59,7 +50,7 @@ end
     -- local effectPath = cc.FileUtils:getInstance():fullPathForFilename("effect1.wav")
     -- cc.SimpleAudioEngine:getInstance():preloadEffect(effectPath)
 
-----------------------------ƒ⁄¥ÊºÏ≤‚----------------------------------------
+----------------------------ƒ⁄¥Ê ‰≥ˆ----------------------------------------
 local timeCount = 0
 local function checkMemory(dt)
     timeCount = timeCount + dt

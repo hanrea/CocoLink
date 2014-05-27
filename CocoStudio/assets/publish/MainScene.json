@@ -32,13 +32,13 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 10009,
+      "objecttag": 10012,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 43.63885498046875,
-      "y": -7.0833320617675781,
+      "x": 0,
+      "y": 0,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -54,24 +54,41 @@
           }
         }
       ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10013,
+      "rotation": 0,
+      "scalex": 3.59154916,
+      "scaley": 2.25,
+      "visible": 1,
+      "x": 124.99998474121094,
+      "y": 343.99996948242188,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "menu1.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
     }
   ],
   "CanvasSize": {
-    "_height": 320,
-    "_width": 568
+    "_height": 640,
+    "_width": 960
   },
   "Triggers": [
-    {
-      "actions": [],
-      "conditions": [],
-      "events": [
-        {
-          "id": 0
-        }
-      ],
-      "id": 0,
-      "name": "初始化游戏数据"
-    },
     {
       "actions": [
         {
@@ -79,7 +96,7 @@
           "dataitems": [
             {
               "key": "NodeTag",
-              "value": "10000"
+              "value": 10009
             },
             {
               "key": "LeaveFile",
@@ -95,48 +112,97 @@
             },
             {
               "key": "startX",
-              "value": 200
+              "value": 100
             },
             {
               "key": "startY",
-              "value": 40
+              "value": 150
             },
             {
               "key": "ItemWidth",
-              "value": 80
+              "value": 40
             },
             {
               "key": "Itemheigth",
-              "value": 80
+              "value": 40
             },
             {
               "key": "ScaleX",
-              "value": 1
+              "value": 0.5
             },
             {
               "key": "ScaleY",
+              "value": 0.5
+            }
+          ]
+        },
+        {
+          "classname": "TMoveBy",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": 10012
+            },
+            {
+              "key": "x",
+              "value": -1000
+            },
+            {
+              "key": "y",
               "value": 1
+            },
+            {
+              "key": "Duration",
+              "value": 1
+            },
+            {
+              "key": "IsReverse",
+              "value": 0
+            },
+            {
+              "key": "IsRepeatForever",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "conditions": [],
+      "events": [
+        {
+          "id": 4
+        }
+      ],
+      "id": 0,
+      "name": "初始化游戏数据"
+    },
+    {
+      "actions": [
+        {
+          "classname": "TScaleTo",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": 10013
+            },
+            {
+              "key": "ScaleX",
+              "value": 0.1
+            },
+            {
+              "key": "ScaleY",
+              "value": 0.58
+            },
+            {
+              "key": "Duration",
+              "value": 2
             }
           ]
         }
       ],
       "conditions": [
         {
-          "classname": "WidgetIsClick",
-          "dataitems": [
-            {
-              "key": "NodeTag",
-              "value": 10009
-            },
-            {
-              "key": "WidgetTag",
-              "value": 3
-            },
-            {
-              "key": "WidgetName",
-              "value": "btn_start"
-            }
-          ]
+          "classname": "TabelIsClick",
+          "dataitems": []
         }
       ],
       "events": [
@@ -145,7 +211,7 @@
         }
       ],
       "id": 1,
-      "name": "连接单元"
+      "name": "Trigger1"
     }
   ],
   "Version": "1.4.0.1",

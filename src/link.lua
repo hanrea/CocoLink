@@ -25,31 +25,32 @@ end
 function isConnection(tabel,C1,R1,C2,R2)
 
 	cclog("rukou %s    %s   %s    %s   ",C1,R1,C2,R2)
-	if tonumber(tabel[R1][C1]) ~= tonumber(tabel[R2][C2]) then
-		cclog("不是一对")
-		return false
-	end
-	cclog("A(%s,%s):%s === B(%s,%s):%s",C1,R1,tabel[R1][C1], C2,R2,tabel[R2][C2])
-	if  C1 ==C2 then
-		if R1==R2 then
-			cclog("位置相同")
+	if tabel ~= nil then
+		if tonumber(tabel[R1][C1]) ~= tonumber(tabel[R2][C2]) then
+			cclog("不是一对")
+			return false
+		end
+		cclog("A(%s,%s):%s === B(%s,%s):%s",C1,R1,tabel[R1][C1], C2,R2,tabel[R2][C2])
+		if  C1 ==C2 then
+			if R1==R2 then
+				cclog("位置相同")
+				return false
+			end
+		end
+		if islineConnection(tabel,C1,R1,C2,R2) then
+			cclog("\n 直线连接")
+			return true
+		elseif   isOneCornerConnection(tabel,C1,R1,C2,R2) then
+			cclog("\n 一个折点")
+			return true
+		elseif  isTwoCornerConnection(tabel,C1,R1,C2,R2) then
+			cclog("\n 两次匹配")
+			return true
+		else
+			cclog("无匹配数据50")
 			return false
 		end
 	end
-	if islineConnection(tabel,C1,R1,C2,R2) then
-		cclog("\n 直线连接")
-		return true
-	elseif   isOneCornerConnection(tabel,C1,R1,C2,R2) then
-		cclog("\n 一个折点")
-		return true
-	elseif  isTwoCornerConnection(tabel,C1,R1,C2,R2) then
-		cclog("\n 两次匹配")
-		return true
-	else
-		cclog("无匹配数据50")
-		return false
-	end
-
 end
 
 ----单行

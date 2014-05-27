@@ -21,6 +21,7 @@ function TriggerTest:createGameScene()
 	cclog("createGameScene")
     local node = ccs.SceneReader:getInstance():createNodeWithSceneFile("res/publish/MainScene.json")
     cclog("createGameSceneend")
+	ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ENTERSCENE)
 	return node
 end
 
@@ -93,33 +94,32 @@ function TriggerTest.create()
             end
         end
         layer:registerScriptHandler(onNodeEvent)
-		--键盘监听事件
+		--F5场景
 		local function onKeyReleased(keyCode, event)
             local label = event:getCurrentTarget()
             if keyCode == cc.KeyCode.KEY_F5 then
-				package.loaded["src/cocolink.lua"] = nil  
+				package.loaded["src/cocolink.lua"] = nil
 				require("src/cocolink.lua")
             end
         end
         local listener = cc.EventListenerKeyboard:create()
         listener:registerScriptHandler(onKeyReleased, cc.Handler.EVENT_KEYBOARD_RELEASED )
-		
 		local eventDispatcher = layer:getEventDispatcher()
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
     end
 	cclog("creatend")
     return layer
 end
------------Trigger-------------
 
-  local sceneGame = cc.Scene:create()
-	sceneGame:addChild(TriggerTest.create())
 
-	if cc.Director:getInstance():getRunningScene() then
-		cc.Director:getInstance():replaceScene(sceneGame)
-	else
-		cc.Director:getInstance():runWithScene(sceneGame)
-	end
+-----------加载场景-------------
+local sceneGame = cc.Scene:create()
+sceneGame:addChild(TriggerTest.create())
+if cc.Director:getInstance():getRunningScene() then
+	cc.Director:getInstance():replaceScene(sceneGame)
+else
+	cc.Director:getInstance():runWithScene(sceneGame)
+end
 
 
 

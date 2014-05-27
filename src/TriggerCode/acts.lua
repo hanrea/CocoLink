@@ -82,7 +82,7 @@ function TScaleTo:init()
 end
 
 function TScaleTo:done(event,touch)
-    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
     if nil == node then
         return
     end
@@ -212,6 +212,9 @@ function CreatLeaveFromJson:done(event,touch)
 		table.insert(tabel, splitlist)
 	end
 
+	 require "src/TriggerHelper"
+	 setLeaveTabel(tabel)
+	
 	node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
 	 if nil == node then
         return
@@ -222,6 +225,8 @@ function CreatLeaveFromJson:done(event,touch)
 			item = ccui.CheckBox:create()
 			item:setPosition(cc.p(self._startX/2 +(j*self._ItemWidth), self._startY/2 +((self._Col-i-1)*self._Itemheigth)))
 			item:loadTextureBackGround(tostring("res/"..tabel[i][j]..".png"))
+			--item:setWidth(self._ItemWidth)
+			--item:setHeight(self._Itemheigth)
 			item:setScaleX(self._ScaleX)
 			item:setScaleY(self._ScaleY)
 			item:setTouchEnabled(false)

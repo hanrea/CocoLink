@@ -22,7 +22,6 @@ function NodeInRect:detect(event,touch)
     if nil ~= node and math.abs(node:getPositionX() - self._origin.x) <= self._size.width and math.abs(node:getPositionY() - self._origin.y) <= self._size.height then
         return true
     end
-
     return false
 end
 
@@ -74,24 +73,25 @@ end
 
 function WidgetIsClick:detect(event,touch)
 
-	cclog("  touch :  %s   %s  ",touch:getLocation().x,touch:getLocation().y )
-		  
-   local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
-   需要转换为UI节点
-	local widget=nil
-cclog("1111") 
+	cclog("  touch :  %s   %s  ",touch:getLocation().x,touch:getLocation().y )	  
+	local node = ccs.SceneReader:getInstance():getNodeByTag(10012):getComponent("GUIComponent")
+	local uilayer = node:getNode()
+	local widget = nil
     if nil~= node then
-			
-		if nil ~= self._WidgetTag then
-			widget=ccui.Helper:seekWidgetByTag(node, self._WidgetTag)
+		if -1 ~= self._WidgetTag then
+			cclog("ttttttttt")
+			widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
 		elseif nil ~= self._WidgetName then
-			widget=ccui.Helper:seekWidgetByName(node, self._WidgetName)
+			 widget=ccui.Helper:seekWidgetByName(uilayer, self._WidgetName)
 		end
 	end
-	print(widget)
+
 	if nil~= widget then
-		cclog("333") 
-		if touch:getLocation().x > widget:getPosition().convertToWorldSpace().x and touch:getLocation().y > widget:getPosition().convertToWorldSpace().y and   touch:getLocation().x +widget:getSize().width > widget:getPosition().convertToWorldSpace().x  and touch:getLocation().y +widget:getSize().height> widget:getPosition().convertToWorldSpace().y   then
+		cclog("333%s ",widget:getPositionX()) 
+		local touchpoint = touch:getLocation()
+		local width =widget:getSize().width
+		local height =widget:getSize().height
+		if  touchpoint.x > widget:getPositionX()-width/2  and  touchpoint.x< widget:getPositionX()+width/2  and  touchpoint.y > widget:getPositionY()-height/2  and  touchpoint.y< widget:getPositionY()+height/2    then
 			cclog("444") 
 			return true
 		end
@@ -123,5 +123,111 @@ function WidgetIsClick:removeAll()
 end
 
 
+--------------------+
+
+local TabelIsClick = class("WidgetIsClick")
+TabelIsClick._NodeTag  	= -1
+TabelIsClick._WidgetTag 	= nil
+TabelIsClick._WidgetName  	= nil
+
+function TabelIsClick:ctor()
+    self._NodeTag 			= -1
+    self._WidgetTag		= nil
+    self._WidgetName	= nil
+	self._WidgetTag		= -1
+    self._WidgetName	= ""
+	
+end
+
+function TabelIsClick:init()
+    return true
+end
+
+function TabelIsClick:detect(event,touch)
+	
+	clickTabel ={col=0 ,row=0}
+	
+	for i=1,8 do
+	
+		if touch:getLocation().x > 72+40*(i-1) then
+			if touch:getLocation().x< 72+40*i then
+			clickTabel["col"] = i
+				break
+			end
+		end
+	end
+	
+	for i=0,8 do
+		if touch:getLocation().y < 14+40*(9-i) then
+			if touch:getLocation().y > 14+40*(9-i-1) then
+				clickTabel["row"] = i
+				break
+			end
+		end
+	end
+	
+
+	require "src/TriggerHelper"
+	local clitab =getIndexTabel()
+	cclog("iiiiiiiiiii==%s",clitab["cliA"]["col"])
+	if clitab["cliA"]["col"]~=0 then
+		setIndexTabelB(clickTabel)
+		require "src/TriggerHelper"
+		local tab= getLeaveTabel()
+		require "src/link"
+		local c1 = clitab["cliA"]["col"]
+		local r1 =clitab["cliA"]["row"]
+		local c2 =clickTabel["col"]
+		local r2 =clickTabel["row"]
+		cclog("xxxxxxxxxxxxxxx")
+		
+		if isConnection(tab,c1,r1,c2,r2) then
+			setIndexTabelA({col=0 ,row=0})
+			setIndexTabelB({col=0 ,row=0})
+			tab[r1][c1]=0
+			tab[r2][c2]=0
+
+			setLeaveTabel(tab)
+			return true
+		else
+			setIndexTabelA({col=0 ,row=0})
+			setIndexTabelB({col=0 ,row=0})
+		end
+			
+	else 
+		
+		setIndexTabelA(clickTabel)
+	end
+	
+	
+	
+	
+    return false
+end
+
+function TabelIsClick:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "NodeTag" then
+                self._NodeTag = subDict["value"]
+            elseif key == "WidgetTag" then
+                self._WidgetTag = subDict["value"]
+            elseif key == "WidgetName" then
+                self._WidgetName = subDict["value"]
+            end
+        end
+    end
+end
+
+function TabelIsClick:removeAll()
+    print("TabelIsClick::removeAll")
+end
+
+
 ccs.registerTriggerClass("NodeInRect",NodeInRect.new)
 ccs.registerTriggerClass("WidgetIsClick",WidgetIsClick.new)
+ccs.registerTriggerClass("TabelIsClick",TabelIsClick.new)
