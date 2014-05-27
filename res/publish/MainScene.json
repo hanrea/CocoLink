@@ -164,9 +164,53 @@
               "value": 0
             }
           ]
+        },
+        {
+          "classname": "TriggerState",
+          "dataitems": [
+            {
+              "key": "ID",
+              "value": 1
+            },
+            {
+              "key": "State",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "classname": "TriggerState",
+          "dataitems": [
+            {
+              "key": "ID",
+              "value": 0
+            },
+            {
+              "key": "State",
+              "value": 0
+            }
+          ]
         }
       ],
-      "conditions": [],
+      "conditions": [
+        {
+          "classname": "WidgetIsClick",
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10012
+            },
+            {
+              "key": "WidgetTag",
+              "value": 3
+            },
+            {
+              "key": "WidgetName",
+              "value": ""
+            }
+          ]
+        }
+      ],
       "events": [
         {
           "id": 4
@@ -178,23 +222,23 @@
     {
       "actions": [
         {
-          "classname": "TScaleTo",
+          "classname": "TRotateBy",
           "dataitems": [
             {
               "key": "Tag",
               "value": 10013
             },
             {
-              "key": "ScaleX",
-              "value": 0.1
-            },
-            {
-              "key": "ScaleY",
-              "value": 0.58
+              "key": "DeltaAngle",
+              "value": 288
             },
             {
               "key": "Duration",
-              "value": 2
+              "value": 3
+            },
+            {
+              "key": "IsReverse",
+              "value": 1
             }
           ]
         }
@@ -202,7 +246,20 @@
       "conditions": [
         {
           "classname": "TabelIsClick",
-          "dataitems": []
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10000
+            },
+            {
+              "key": "WidgetTag",
+              "value": 1
+            },
+            {
+              "key": "WidgetName",
+              "value": ""
+            }
+          ]
         }
       ],
       "events": [
@@ -212,6 +269,57 @@
       ],
       "id": 1,
       "name": "Trigger1"
+    },
+    {
+      "actions": [
+        {
+          "classname": "TriggerState",
+          "dataitems": [
+            {
+              "key": "ID",
+              "value": 1
+            },
+            {
+              "key": "State",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "classname": "NodeInRect",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": 10012
+            },
+            {
+              "key": "originX",
+              "value": -1000
+            },
+            {
+              "key": "originY",
+              "value": 0
+            },
+            {
+              "key": "sizeWidth",
+              "value": 180
+            },
+            {
+              "key": "sizeHeight",
+              "value": 70
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "id": 4
+        }
+      ],
+      "id": 2,
+      "name": "Trigger2"
     }
   ],
   "Version": "1.4.0.1",

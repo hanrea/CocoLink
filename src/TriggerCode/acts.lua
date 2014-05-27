@@ -121,6 +121,67 @@ function TScaleTo:removeAll()
 end
 
 
+-------------------
+
+
+local TRotateBy = class("TRotateBy")
+TRotateBy._tag  = -1
+TRotateBy._deltaangle = 0
+TRotateBy._duration = 0
+TRotateBy._isreverse = true
+
+function TRotateBy:ctor()
+    self._tag = -1
+	 self._deltaangle = 0
+    self._duration = 0
+    self._isreverse = 0
+end
+
+function TRotateBy:init()
+    return true
+end
+
+function TRotateBy:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local RotateBy = cc.RotateBy:create(self._duration, self._deltaangle)
+    if nil == RotateBy then
+        return
+    end
+
+    node:runAction(RotateBy)
+end
+
+function TRotateBy:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "DeltaAngle" then
+                self._deltaangle = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "IsReverse" then
+                self._isreverse = subDict["value"]
+            end
+        end
+    end
+end
+
+function TRotateBy:removeAll()
+    print("TRotateBy::removeAll")
+end
+
+
+------------------
+
 local TriggerState = class("TriggerState")
 TriggerState._id  = -1
 TriggerState._state = 0
@@ -220,7 +281,7 @@ function CreatLeaveFromJson:done(event,touch)
 	 if nil == node then
         return
     end
-	cclog("%s   %s   ",self._Row,self._Col)
+	cclog(" 总行数 %s 列数： %s   ",self._Row,self._Col)
 	for i=2,self._Row-1  do
 		for j=2,self._Col-1 do
 			item = ccui.CheckBox:create()
@@ -276,3 +337,5 @@ ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
 ccs.registerTriggerClass("TScaleTo",TScaleTo.new)
 ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
 ccs.registerTriggerClass("TriggerState",TriggerState.new)
+
+ccs.registerTriggerClass("TRotateBy",TRotateBy.new)

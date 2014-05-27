@@ -64,7 +64,6 @@ function WidgetIsClick:ctor()
     self._WidgetName	= nil
 	self._WidgetTag		= -1
     self._WidgetName	= ""
-	
 end
 
 function WidgetIsClick:init()
@@ -87,12 +86,12 @@ function WidgetIsClick:detect(event,touch)
 	end
 
 	if nil~= widget then
-		cclog("333%s ",widget:getPositionX()) 
+		cclog("控件位置 X:%s ，Y：%s",widget:getPositionX(),widget:getPositionY()) 
 		local touchpoint = touch:getLocation()
 		local width =widget:getSize().width
 		local height =widget:getSize().height
 		if  touchpoint.x > widget:getPositionX()-width/2  and  touchpoint.x< widget:getPositionX()+width/2  and  touchpoint.y > widget:getPositionY()-height/2  and  touchpoint.y< widget:getPositionY()+height/2    then
-			cclog("444") 
+			cclog("控件被点击")
 			return true
 		end
 	end
@@ -122,21 +121,19 @@ function WidgetIsClick:removeAll()
     print("WidgetIsClick::removeAll")
 end
 
+--------------------
 
---------------------+
-
-local TabelIsClick = class("WidgetIsClick")
+local TabelIsClick = class("TabelIsClick")
 TabelIsClick._NodeTag  	= -1
 TabelIsClick._WidgetTag 	= nil
 TabelIsClick._WidgetName  	= nil
 
 function TabelIsClick:ctor()
-    self._NodeTag 			= -1
+    self._NodeTag 		= -1
     self._WidgetTag		= nil
     self._WidgetName	= nil
 	self._WidgetTag		= -1
     self._WidgetName	= ""
-	
 end
 
 function TabelIsClick:init()
@@ -169,7 +166,7 @@ function TabelIsClick:detect(event,touch)
 
 	require "src/TriggerHelper"
 	local clitab =getIndexTabel()
-	cclog("iiiiiiiiiii==%s",clitab["cliA"]["col"])
+	cclog("上次点击的位置 【%s】【%s】",clitab["cliA"]["col"],clitab["cliA"]["row"])
 	if clitab["cliA"]["col"]~=0 then
 		setIndexTabelB(clickTabel)
 		require "src/TriggerHelper"
@@ -179,29 +176,24 @@ function TabelIsClick:detect(event,touch)
 		local r1 =clitab["cliA"]["row"]
 		local c2 =clickTabel["col"]
 		local r2 =clickTabel["row"]
-		cclog("xxxxxxxxxxxxxxx")
-		
+
 		if isConnection(tab,c1,r1,c2,r2) then
 			setIndexTabelA({col=0 ,row=0})
 			setIndexTabelB({col=0 ,row=0})
 			tab[r1][c1]=0
 			tab[r2][c2]=0
-
 			setLeaveTabel(tab)
+			cclog("识别成功，修改表格数据")
 			return true
 		else
 			setIndexTabelA({col=0 ,row=0})
 			setIndexTabelB({col=0 ,row=0})
-		end
 			
-	else 
-		
+		end
+	else
+		cclog("第一次点击，表格为空")
 		setIndexTabelA(clickTabel)
 	end
-	
-	
-	
-	
     return false
 end
 
@@ -226,7 +218,6 @@ end
 function TabelIsClick:removeAll()
     print("TabelIsClick::removeAll")
 end
-
 
 ccs.registerTriggerClass("NodeInRect",NodeInRect.new)
 ccs.registerTriggerClass("WidgetIsClick",WidgetIsClick.new)

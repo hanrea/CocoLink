@@ -88,26 +88,26 @@ function isConnection(tabel,x1,y1,x2,y2)
 		end
 	end
 	if islineConnection(tabel,x1,y1,x2,y2) then
-		cclog("----36")
+		cclog("直线连接成功")
 		return true
 	elseif   isOneCornerConnection(tabel,x1,y1,x2,y2) then
-		cclog("----39")
+		cclog("直角连接成功")
 		return true
 	elseif  isTwoCornerConnection(tabel,x1,y1,x2,y2) then
-		cclog("----42")
+		cclog("两个拐角连接成功")
 		return true
 	else
+		cclog("连接失败")
 		return false
 	end
 end
 
 ----单行
 function islineConnection(tabel,x1,y1,x2,y2)
-	cclog("islineConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
+	cclog("直线连接：A;[%f][%f]   B:[%f][%f ]",x1,y1,x2,y2)
 	local i=0
 	local temp
 	
-	cclog("---------89")
 	if x1==x2 then
 		local caltabel = tabel[x1]
 		temp = math.abs(y2-y1)
@@ -157,7 +157,7 @@ end
 
 
 function isOneCornerConnection(tabel,x1,y1,x2,y2)
---	cclog("isOneCornerConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
+	cclog("直角连接：A;[%f][%f]   B:[%f][%f ]",x1,y1,x2,y2)
 	if tabel[x1][y2]==0 then
 		cclog("---------141")
 		if 	islineConnection(tabel,x1,y1,x1,y2) then 
@@ -182,9 +182,9 @@ end
 
 
 function isTwoCornerConnection(tabel,x1,y1,x2,y2)
---	cclog("isTwoCornerConnection%f    %f   %f    %f   ",x1,y1,x2,y2)
-	--local i=0
-	--往左扫描
+	cclog("两直角连接：A;[%f][%f]   B:[%f][%f ]",x1,y1,x2,y2)
+
+	cclog("向左扫描")
 
 	for i=y1-1,i>=0,i-1 do
 		if tabel[x1][i]~= 0 then
@@ -194,7 +194,7 @@ function isTwoCornerConnection(tabel,x1,y1,x2,y2)
 		end
 	end
 	
-	--往上扫描
+	cclog("往上扫描")
 	for i= x1-1,i>=0,i-1 do
 		if tabel[i][y1]~=0 then
 		elseif isOneCornerConnection(tabel,i,y1,x2,y2) then
@@ -202,7 +202,7 @@ function isTwoCornerConnection(tabel,x1,y1,x2,y2)
 		end
 	end
 	
-	--往右扫描
+	cclog("往上扫描")
 	for i=y1+1,table.getn(tabel[y1]),i+1 do
 		if tabel[x1][i]~=0 then
 		elseif isOneCornerConnection(tabel,x1,i,x2,y2) then
@@ -210,7 +210,7 @@ function isTwoCornerConnection(tabel,x1,y1,x2,y2)
 		end
 	end
 	
-	--往下扫描
+	cclog("往下扫描")
 	for i=x1+1,table.getn(tabel),i+1 do
 		if tabel[i][x1]~=0 then
 		elseif isOneCornerConnection(tabel,i,y1,x2,y2) then
