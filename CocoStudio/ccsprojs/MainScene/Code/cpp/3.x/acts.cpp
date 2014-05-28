@@ -325,7 +325,6 @@ void TRotateBy::done()
             {
                 node->runAction(Sequence::create(actionBy, actionByBack, nullptr));
             }
-			
 		}
 		else
 		{

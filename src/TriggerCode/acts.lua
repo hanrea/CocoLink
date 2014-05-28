@@ -1,4 +1,3 @@
-
 require "CocoStudio"
 
 local TMoveBy = class("TMoveBy")
@@ -9,7 +8,7 @@ TMoveBy._y  = 0
 TMoveBy._reverse = false
 function TMoveBy:ctor()
     self._tag = -1
-    self._duration = 0.0
+    self._duration = 0
     self._x  = 0
     self._y  = 0
     self._reverse = false
@@ -64,7 +63,64 @@ function TMoveBy:removeAll()
     node:getActionManager():removeAllActions()
     print("TMoveBy::removeAll")
 end
+-----------------
+local TMoveTo = class("TMoveTo")
+	TMoveTo._tag = -1
+	TMoveTo._x  = 0
+	TMoveTo._y  = 0
+	TMoveTo._duration = 0
 
+function TMoveTo:ctor()
+    self._tag = -1
+    self._x  = 0
+    self._y  = 0
+    self._duration = 0
+end
+
+function TMoveTo:init()
+    return true
+end
+
+function TMoveTo:done(event,touch)
+    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+    local  actionTo = cc.MoveTo:create(self._duration, cc.p(self._x, self._y))
+    if nil == actionTo then
+        return
+    end
+	 node:runAction(actionTo)
+
+end
+
+function TMoveTo:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "x" then
+                self._x = subDict["value"]
+            elseif key == "y" then
+                self._y = subDict["value"]
+			 elseif key == "Duration" then
+                self._duration = subDict["value"]
+            end
+        end
+    end
+end
+
+function TMoveTo:removeAll()
+    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    node:getActionManager():removeAllActions()
+    print("TMoveTo::removeAll")
+end
+
+-----------------
 local TScaleTo = class("TScaleTo")
 TScaleTo._tag  = -1
 TScaleTo._duration = 0
@@ -92,7 +148,7 @@ function TScaleTo:done(event,touch)
     if nil == actionTo then
         return
     end
-
+	cclog("runAction ScaleTo  X: %s Y: %s", self._scaleX , self._scaleX )
     node:runAction(actionTo)
 end
 
@@ -121,20 +177,234 @@ function TScaleTo:removeAll()
 end
 
 
+-----------------
+local TScaleBy = class("TScaleBy")
+	TScaleBy._tag  = -1
+	TScaleBy._duration = 0
+	TScaleBy._scaleX = 0
+	TScaleBy._scaleY = 0
+	TScaleBy._reverse =false
+	TScaleBy._repeatForever=false
+
+function TScaleBy:ctor()
+	self._tag  = -1
+	self._duration = 0
+	self._scaleX = 0
+	self._scaleY = 0
+	self._reverse =false
+	self._repeatForever=false
+end
+
+function TScaleBy:init()
+    return true
+end
+
+function TScaleBy:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local actionBy = cc.ScaleBy:create(self._duration, self._scaleX, self._scaleY)
+    if nil == actionBy then
+        return
+    end
+	if self._reverse then
+		local actionByBack  =actionBy:reverse()
+		if self._repeatForever then
+			cclog("runAction ScaleBy %s 重复",self._deltaangle)
+			node:runAction(cc.RepeatForever:creat(cc.Sequence:create(actionBy,actionByBack,nil)))
+		else
+			cclog("runAction ScaleBy %s 往返",self._deltaangle)
+			node:runAction(cc.Sequence:create(actionBy, actionByBack))
+		end
+	else
+		node:runAction(actionBy)
+	end
+
+end
+
+function TScaleBy:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "ScaleX" then
+                self._scaleX = subDict["value"]
+            elseif key == "ScaleY" then
+                self._scaleY = subDict["value"]
+			 elseif key == "IsReverse" then
+                self._reverse = subDict["value"]
+			 elseif key == "IsRepeatForever" then
+                self._repeatForever = subDict["value"]
+            end
+        end
+    end
+end
+
+function TScaleBy:removeAll()
+    print("TScaleBy::removeAll")
+end
+
+
+-----------------
+local TSkewTo = class("TSkewTo")
+	TSkewTo._tag  = -1
+	TSkewTo._duration = 0
+	TSkewTo._skewX = 0
+	TSkewTo._skewY = 0
+
+function TSkewTo:ctor()
+	self._tag  = -1
+	self._duration = 0
+	self._skewX = 0
+	self._skewY = 0
+
+end
+
+function TSkewTo:init()
+    return true
+end
+
+function TSkewTo:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local actionTo = cc.SkewTo:create(self._duration, self._skewX, self._skewY)
+    if nil == actionTo then
+        return
+    end
+	node:runAction(actionTo)
+end
+
+function TSkewTo:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "ScaleX" then
+                self._scaleX = subDict["value"]
+            elseif key == "ScaleY" then
+                self._scaleY = subDict["value"]
+			 elseif key == "IsReverse" then
+                self._reverse = subDict["value"]
+			 elseif key == "IsRepeatForever" then
+                self._repeatForever = subDict["value"]
+            end
+        end
+    end
+end
+
+function TSkewTo:removeAll()
+    print("TSkewTo::removeAll")
+end
+
+
+-----------------
+local TSkewBy = class("TSkewBy")
+	TSkewBy._tag  = -1
+	TSkewBy._duration = 0
+	TSkewBy._skewX = 0
+	TSkewBy._skewY = 0
+	TSkewBy._reverse =false
+	TSkewBy._repeatForever=false
+
+function TSkewBy:ctor()
+	self._tag  = -1
+	self._duration = 0
+	self._skewX = 0
+	self._skewY = 0
+	self._reverse =false
+	self._repeatForever=false
+end
+
+function TSkewBy:init()
+    return true
+end
+
+function TSkewBy:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local actionBy = cc.SkewBy:create(self._duration, self._skewX, self._skewY)
+    if nil == actionBy then
+        return
+    end
+	if self._reverse then
+		local actionByBack  =actionBy:reverse()
+		if self._repeatForever then
+			cclog("runAction SkewBy %s 重复",self._deltaangle)
+			node:runAction(cc.RepeatForever:creat(cc.Sequence:create(actionBy,actionByBack,nil)))
+		else
+			cclog("runAction SkewBy %s 往返",self._deltaangle)
+			node:runAction(cc.Sequence:create(actionBy, actionByBack))
+		end
+	else
+		node:runAction(actionBy)
+	end
+	
+end
+
+function TSkewBy:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "ScaleX" then
+                self._skewX = subDict["value"]
+            elseif key == "ScaleY" then
+                self._skewY = subDict["value"]
+			 elseif key == "IsReverse" then
+                self._reverse = subDict["value"]
+			 elseif key == "IsRepeatForever" then
+                self._repeatForever = subDict["value"]
+            end
+        end
+    end
+end
+
+function TSkewBy:removeAll()
+    print("TSkewBy::removeAll")
+end
+
+
 -------------------
-
-
 local TRotateBy = class("TRotateBy")
 TRotateBy._tag  = -1
-TRotateBy._deltaangle = 0
 TRotateBy._duration = 0
-TRotateBy._isreverse = true
+TRotateBy._deltaangle = 0
+
+TRotateBy._reverse = false
+TRotateBy._repeatForever  =false
 
 function TRotateBy:ctor()
     self._tag = -1
 	 self._deltaangle = 0
     self._duration = 0
-    self._isreverse = 0
+    self._reverse = false
+	self._repeatForever =false
 end
 
 function TRotateBy:init()
@@ -147,12 +417,24 @@ function TRotateBy:done(event,touch)
         return
     end
 
-    local RotateBy = cc.RotateBy:create(self._duration, self._deltaangle)
-    if nil == RotateBy then
+    local actionBy = cc.RotateBy:create(self._duration, self._deltaangle)
+    if nil == actionBy then
         return
     end
-
-    node:runAction(RotateBy)
+	if self._reverse then
+		local actionByBack  =actionBy:reverse()
+		if self._repeatForever then
+			cclog("runAction RotateBy %s 重复",self._deltaangle)
+			node:runAction(cc.RepeatForever:creat(cc.Sequence:create(actionBy,actionByBack,nil)))
+		else
+			cclog("runAction RotateBy %s 往返",self._deltaangle)
+			node:runAction(cc.Sequence:create(actionBy, actionByBack))
+		end
+	else
+		node:runAction(actionBy)
+	end
+	cclog("runAction RotateBy %s",self._deltaangle)
+    node:runAction(actionBy)
 end
 
 function TRotateBy:serialize(value)
@@ -169,7 +451,9 @@ function TRotateBy:serialize(value)
             elseif key == "Duration" then
                 self._duration = subDict["value"]
             elseif key == "IsReverse" then
-                self._isreverse = subDict["value"]
+                self._reverse = subDict["value"] ==1 or false
+			elseif key == "IsRepeatForever" then
+				self._repeatForever = subDict["value"] ==1 or false
             end
         end
     end
@@ -180,6 +464,61 @@ function TRotateBy:removeAll()
 end
 
 
+-------------------
+
+
+local TRotateTo = class("TRotateTo")
+TRotateTo._tag 			= -1
+TRotateTo._duration 	= 0
+TRotateTo._deltaAngle 	= 0
+
+function TRotateTo:ctor()
+self._tag 			= -1
+self._duration 		= 0
+self._deltaangle 	= 0
+
+
+end
+
+function TRotateTo:init()
+    return true
+end
+
+function TRotateTo:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local actionto = cc.RotateTo:create(self._duration, self._deltaangle)
+    if nil == actionto then
+        return
+    end
+		cclog("runAction RotateTo %s",self._deltaangle)
+    node:runAction(actionto)
+end
+
+function TRotateTo:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "DeltaAngle" then
+                self._deltaAngle = subDict["value"]
+            end
+        end
+    end
+end
+
+function TRotateTo:removeAll()
+    cclog("TRotateTo::removeAll")
+end
 ------------------
 
 local TriggerState = class("TriggerState")
@@ -199,10 +538,13 @@ function TriggerState:done(event,touch)
     local obj = ccs.TriggerMng.getInstance():getTriggerObj(self._id)
     if nil ~= obj then
         if self._state == 0 then
+			cclog("TriggerState %s 禁用",self._id )
             obj:setEnable(false)
         elseif self._state == 1 then
+			cclog("TriggerState %s 启用",self._id )
             obj:setEnable(true)
         elseif self._state == 2 then
+			cclog("TriggerState %s 删除",self._id )
             ccs.TriggerMng.getInstance():removeTriggerObj(self._id)
         end
     end
@@ -229,7 +571,317 @@ function TriggerState:removeAll()
 end
 
 
+------------------
 
+local PlayMusic = class("PlayMusic")
+PlayMusic._tag  = -1
+PlayMusic._comName = ""
+PlayMusic._type = -1
+
+function PlayMusic:ctor()
+	self._tag  = -1
+	self._comName = ""
+	self._type = -1
+end
+
+function PlayMusic:init()
+    return true
+end
+
+function PlayMusic:done(event,touch)
+	local audio = ccs.SceneReader:getInstance():getNodeByTag(self._tag):getComponent(self._comName)
+
+	if nil == audio then
+		return
+	end
+	if self._type == 0  then 
+		audio:playBackgroundMusic()
+	else
+		audio:playEffect()
+	end
+end
+
+function PlayMusic:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "ID" then
+                self._id = subDict["value"]
+            elseif key == "componentName" then
+                self._comName = subDict["value"]
+			elseif key == "type" then
+                self._type = subDict["value"]
+            end
+        end
+    end
+end
+
+function PlayMusic:removeAll()
+    print("PlayMusic::removeAll")
+end
+
+
+
+
+------------------
+
+local ArmaturePlayAction = class("ArmaturePlayAction")
+ArmaturePlayAction._tag  = -1
+ArmaturePlayAction._comName = ""
+ArmaturePlayAction._aniname = ""
+
+function ArmaturePlayAction:ctor()
+	self._tag  = -1
+	self._comName = ""
+	self._aniname = ""
+end
+
+function ArmaturePlayAction:init()
+    return true
+end
+
+function ArmaturePlayAction:done(event,touch)
+	local pRender = ccs.SceneReader:getInstance():getNodeByTag(self._tag):getComponent(self._comName)
+	local pAr  =pRender:getNode()
+	if nil == pAr then
+		return
+	end
+	if self._type == 0  then 
+		pAr:playBackgroundMusic()
+	else
+		pAr:playEffect()
+	end
+end
+
+function ArmaturePlayAction:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "ID" then
+                self._id = subDict["value"]
+            elseif key == "componentName" then
+                self._comName = subDict["value"]
+			elseif key == "AnimationName" then
+                self._aniname = subDict["value"]
+            end
+        end
+    end
+end
+
+function ArmaturePlayAction:removeAll()
+    print("ArmaturePlayAction::removeAll")
+end
+
+
+
+------------------
+
+local ChangeDoubleAttribute = class("ChangeDoubleAttribute")
+ChangeDoubleAttribute._tag  = -1
+ChangeDoubleAttribute._key = ""
+ChangeDoubleAttribute._value = 0
+ChangeDoubleAttribute._type = 0
+ChangeDoubleAttribute._limit = 0
+
+function ChangeDoubleAttribute:ctor()
+	self._tag  = -1
+	self._key = ""
+	self._value = 0
+	self._type = 0
+	self._limit = 0
+
+end
+
+function ChangeDoubleAttribute:init()
+    return true
+end
+
+function ChangeDoubleAttribute:done(event,touch)
+	local attri = ccs.SceneReader:getInstance():getNodeByTag(self._tag):getComponent("CCComAttribute")
+	local value = attri:getFloat(self._key)--
+	if 		self._type ==0 then
+		value =value-self._value
+	elseif  self._type ==1 then
+		value=self._value
+	else
+		value=value + self._value
+	end
+	
+	if  self._limit ==0 then
+	
+		if value < 0 then
+			value=0
+		end
+	elseif  self._limit ==1 then
+		if value > 0 then
+			value=0
+		end
+	end
+	
+	
+end
+
+function ChangeDoubleAttribute:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Key" then
+                self._key = subDict["value"]
+			elseif key == "Value" then
+                self._value = subDict["value"]
+            elseif key == "ChangeType" then
+                self._type = subDict["value"]
+			elseif key == "Limit" then
+                self._limit = subDict["value"]
+            end
+        end
+    end
+end
+
+function ChangeDoubleAttribute:removeAll()
+    print("ChangeDoubleAttribute::removeAll")
+end
+
+------------------
+
+local SetNodeVisible = class("SetNodeVisible")
+SetNodeVisible._tag  = -1
+SetNodeVisible._show = true
+
+
+function SetNodeVisible:ctor()
+	self._tag  = -1
+	self._show = true
+
+end
+
+function SetNodeVisible:init()
+    return true
+end
+
+function SetNodeVisible:done(event,touch)
+	local pNode = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+	if nil == pNode then
+		return
+	end
+	pNode:setVisible(self._show)
+end
+
+function SetNodeVisible:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Visible" then
+                self._show = subDict["value"]
+            end
+        end
+    end
+end
+
+function SetNodeVisible:removeAll()
+    print("SetNodeVisible::removeAll")
+end
+
+------------------
+
+local PlayUIAnimation = class("PlayUIAnimation")
+PlayUIAnimation._uiJsonName  = -1
+PlayUIAnimation._animaitionName = true
+
+
+function PlayUIAnimation:ctor()
+	self._tag  = -1
+	self._show = true
+
+end
+
+function PlayUIAnimation:init()
+    return true
+end
+
+function PlayUIAnimation:done(event,touch)
+	ccs.ActionManagerEx:getInstance():playActionByName(self._uiJsonName,self._animaitionName)
+end
+
+function PlayUIAnimation:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "UIJsonName" then
+                self._uiJsonName = subDict["value"]
+            elseif key == "AnimationName" then
+                self._animaitionName = subDict["value"]
+            end
+        end
+    end
+end
+
+function PlayUIAnimation:removeAll()
+    print("PlayUIAnimation::removeAll")
+end
+
+
+
+------------------
+
+local StopAllActions = class("StopAllActions")
+StopAllActions._vecTags  = -1
+
+function StopAllActions:ctor()
+	self._vecTags  = {}
+end
+
+function StopAllActions:init()
+    return true
+end
+
+function StopAllActions:done(event,touch)
+	local count = table.getn(self._vecTags)
+	for i= 1 ,count do
+		local pNode = ccs.SceneReader:getInstance():getNodeByTag(self._vecTags[i])
+		if nil ~= pNode then
+			pNode:stopAllActions()
+		end
+	end
+end
+
+function StopAllActions:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tags" then
+				local strTags =  subDict["value"]
+				string.gsub(strTags, '[^,]+', function(w) table.insert(self._vecTags , w) end )--使用逗号分隔tag
+            end
+        end
+    end
+end
+
+function StopAllActions:removeAll()
+    print("StopAllActions::removeAll")
+end
 -----------------------------------
 ----------添加ArmatureItem---------
 -----------------------------------
@@ -332,10 +984,11 @@ end
 function CreatLeaveFromJson:removeAll()
     print("CreatLeaveFromJson::removeAll")
 end
-
+ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
+ccs.registerTriggerClass("TMoveTo",TMoveTo.new)
 ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
 ccs.registerTriggerClass("TScaleTo",TScaleTo.new)
-ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
+ccs.registerTriggerClass("TScaleBy",TScaleBy.new)
 ccs.registerTriggerClass("TriggerState",TriggerState.new)
-
 ccs.registerTriggerClass("TRotateBy",TRotateBy.new)
+ccs.registerTriggerClass("TRotateTo",TRotateTo.new)

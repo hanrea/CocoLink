@@ -185,10 +185,9 @@ function isTwoCornerConnection(tabel,x1,y1,x2,y2)
 	cclog("两直角连接：A;[%f][%f]   B:[%f][%f ]",x1,y1,x2,y2)
 
 	cclog("向左扫描")
-
+	local i=0
 	for i=y1-1,i>=0,i-1 do
 		if tabel[x1][i]~= 0 then
-		
 		elseif isOneCornerConnection(tabel,x1,i,x2,y2) then
 			return true
 		end

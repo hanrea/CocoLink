@@ -50,12 +50,12 @@ end
     -- local effectPath = cc.FileUtils:getInstance():fullPathForFilename("effect1.wav")
     -- cc.SimpleAudioEngine:getInstance():preloadEffect(effectPath)
 
-----------------------------内存输出----------------------------------------
+----------------------------内存使用输出----------------------------------------
 local timeCount = 0
 local function checkMemory(dt)
     timeCount = timeCount + dt
     local used = tonumber(collectgarbage("count"))
-   -- cclog(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
+    cclog(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
 end
 --if DEBUG  then
     CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 20.0, false)

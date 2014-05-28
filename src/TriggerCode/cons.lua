@@ -71,9 +71,7 @@ function WidgetIsClick:init()
 end
 
 function WidgetIsClick:detect(event,touch)
-
-	cclog("  touch :  %s   %s  ",touch:getLocation().x,touch:getLocation().y )	  
-	local node = ccs.SceneReader:getInstance():getNodeByTag(10012):getComponent("GUIComponent")
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag):getComponent("GUIComponent")
 	local uilayer = node:getNode()
 	local widget = nil
     if nil~= node then
