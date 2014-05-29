@@ -1,5 +1,5 @@
 require "CocoStudio"
-
+------------
 local TMoveBy = class("TMoveBy")
 TMoveBy._tag = -1
 TMoveBy._duration = 0
@@ -34,6 +34,7 @@ function TMoveBy:done(event,touch)
     else
         node:runAction(actionBy)
     end
+	cclog("runAction TMoveBy  X: %s Y: %s", self._x , self._y )
 end
 
 function TMoveBy:serialize(value)
@@ -91,7 +92,7 @@ function TMoveTo:done(event,touch)
         return
     end
 	 node:runAction(actionTo)
-
+	cclog("runAction TMoveBy  X: %s Y: %s", self._x , self._y )
 end
 
 function TMoveTo:serialize(value)
@@ -882,6 +883,10 @@ end
 function StopAllActions:removeAll()
     print("StopAllActions::removeAll")
 end
+
+
+
+
 -----------------------------------
 ----------添加ArmatureItem---------
 -----------------------------------

@@ -1,5 +1,125 @@
 require ("CocoStudio")
 
+
+------------
+local TimeElapsed = class("TimeElapsed")
+TimeElapsed._totalTime  = -1
+TimeElapsed._tmpTime = nil
+TimeElapsed._suc   = nil
+
+function TimeElapsed:ctor()
+    self._totalTime = -1
+    self._tmpTime = nil
+    self._suc   = nil
+
+end
+
+function TimeElapsed:init()
+	local function update()
+		_tmpTime += dt;
+		if (self._tmpTime > _totalTime)
+		{
+			--self._tmpTime = 0.0f;
+			self._suc = true;
+		}
+	end
+	_scheduler->schedule(schedule_selector(self.update), this, 0.0f , kRepeatForever, 0.0f, false);
+    return true
+end
+
+function TimeElapsed:detect(event,touch)
+
+    return self._suc
+end
+
+function TimeElapsed:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "TotalTime" then
+                self._totalTime = subDict["value"]
+            end
+        end
+    end
+end
+
+function TimeElapsed:removeAll()
+    print("TimeElapsed::removeAll")
+end
+
+
+------------
+local ArmatureActionState = class("NodeInRect")
+ArmatureActionState._tag  = -1
+ArmatureActionState._comName = nil
+ArmatureActionState._aniname   = nil
+ArmatureActionState._state   = nil
+ArmatureActionState._suc   = false
+
+
+function ArmatureActionState:ctor()
+    self._tag = -1
+    self._comName = nil
+    self._aniname   = nil
+    
+	self._state = nil
+	self._suc = false
+end
+
+function ArmatureActionState:init()
+
+	local pRender = ccs.SceneReader:getInstance():getNodeByTag(self._tag):getComponent(self._comName)
+	local pAr  =pRender:getNode()
+	if nil == pAr then
+		return
+	end
+	
+	local function animationEvent(armature,movementType,movementID)
+		
+		if movementType == self._state and movementID == self._aniname then
+			self._suc = true
+		end
+	end
+	ccs.TriggerMng:getInstance():addArmatureMovementCallBack(pAr, this, movementEvent_selector(ArmatureActionState::animationEvent));
+	
+    return true
+end
+
+function ArmatureActionState:detect(event,touch)
+    return self._suc 
+end
+
+function ArmatureActionState:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "componentName" then
+                self._comName = subDict["value"]
+            elseif key == "AnimationName" then
+                self._aniname = subDict["value"]
+            elseif key == "ActionType" then
+                self._state = subDict["value"]
+            end
+        end
+    end
+end
+
+function ArmatureActionState:removeAll()
+    print("ArmatureActionState::removeAll")
+end
+
+
+
+
+------------
 local NodeInRect = class("NodeInRect")
 NodeInRect._tag  = -1
 NodeInRect._origin = nil
@@ -51,6 +171,115 @@ function NodeInRect:removeAll()
     print("NodeInRect::removeAll")
 end
 
+
+
+
+------------
+local NodeVisible = class("NodeVisible")
+NodeVisible._tag  = -1
+NodeVisible._visible = false
+
+
+function NodeVisible:ctor()
+    self._tag = -1
+    self._visible = false
+
+end
+
+function NodeVisible:init()
+    return true
+end
+
+function NodeVisible:detect(event,touch)
+    local pNode = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil ~= pNode and pNode:isVisible() == self._visible  then
+        return true
+    end
+    return false
+end
+
+function NodeVisible:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Visible" then
+                self._visible = subDict["value"]
+            end
+        end
+    end
+end
+
+function NodeVisible:removeAll()
+    print("NodeVisible::removeAll")
+end
+
+------------
+
+
+未完成
+local RectangleCollisionTest = class("RectangleCollisionTest")
+RectangleCollisionTest._tag  = -1
+RectangleCollisionTest._origin = nil
+RectangleCollisionTest._size   = nil
+
+function RectangleCollisionTest:ctor()
+    self._tag = -1
+    self._origin = nil
+    self._size   = nil
+    self._origin = cc.p(0, 0)
+    self._size   = cc.size(0, 0)
+end
+
+function RectangleCollisionTest:init()
+    return true
+end
+
+function RectangleCollisionTest:detect(event,touch)
+    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil ~= node and math.abs(node:getPositionX() - self._origin.x) <= self._size.width and math.abs(node:getPositionY() - self._origin.y) <= self._size.height then
+        return true
+    end
+    return false
+end
+
+function RectangleCollisionTest:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag_A" then
+                self._tag_A = subDict["value"]
+            elseif key == "ComName_A" then
+                self._comName_A = subDict["value"]
+            elseif key == "AOffsetX" then
+                self._aOffsetX = subDict["value"]
+            elseif key == "AOffsetY" then
+                self._aOffsetY = subDict["value"]
+            elseif key == "Tags" then
+                self._vecTags = subDict["value"]
+			elseif key == "ComName_B" then
+                self._comName_B = subDict["value"]
+            elseif key == "BOffsetX" then
+                self._bOffsetX = subDict["value"]
+            elseif key == "BOffsetY" then
+                self._bOffsetY = subDict["value"]
+            end
+        end
+    end
+end
+
+function RectangleCollisionTest:removeAll()
+    print("RectangleCollisionTest::removeAll")
+end
+
+---------------
 
 
 local WidgetIsClick = class("WidgetIsClick")
@@ -119,7 +348,7 @@ function WidgetIsClick:removeAll()
     print("WidgetIsClick::removeAll")
 end
 
---------------------
+------------
 
 local TabelIsClick = class("TabelIsClick")
 TabelIsClick._NodeTag  	= -1

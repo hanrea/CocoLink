@@ -148,6 +148,9 @@ void ArmatureActionState::animationEvent(cocostudio::Armature *armature, cocostu
 	}
 }
 
+
+
+
 IMPLEMENT_CLASS_INFO(NodeInRect)
 NodeInRect::NodeInRect(void)
 :_tag(-1)

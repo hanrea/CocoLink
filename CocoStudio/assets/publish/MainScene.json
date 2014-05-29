@@ -321,6 +321,64 @@
               "value": 1
             }
           ]
+        },
+        {
+          "classname": "PlayMusic",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": 10000
+            },
+            {
+              "key": "componentName",
+              "value": "CCComAudio"
+            },
+            {
+              "key": "type",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "classname": "SequenceMoveTo",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": "10000"
+            },
+            {
+              "key": "EndX",
+              "value": -120
+            },
+            {
+              "key": "EndY",
+              "value": 0
+            },
+            {
+              "key": "EndDuration",
+              "value": 2
+            },
+            {
+              "key": "StartX",
+              "value": 0
+            },
+            {
+              "key": "StartY",
+              "value": 0
+            },
+            {
+              "key": "StartDuration",
+              "value": 0
+            },
+            {
+              "key": "DelayTime",
+              "value": -1
+            },
+            {
+              "key": "IsRepeatForever",
+              "value": 1
+            }
+          ]
         }
       ],
       "conditions": [
@@ -338,6 +396,111 @@
             {
               "key": "WidgetName",
               "value": ""
+            }
+          ]
+        },
+        {
+          "classname": "TimeElapsed",
+          "dataitems": [
+            {
+              "key": "TotalTime",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "classname": "ArmatureActionState",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": "10000"
+            },
+            {
+              "key": "componentName",
+              "value": "CCArmature"
+            },
+            {
+              "key": "AnimationName",
+              "value": "run"
+            },
+            {
+              "key": "ActionType",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "classname": "NodeInRect",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": "10000"
+            },
+            {
+              "key": "originX",
+              "value": 180
+            },
+            {
+              "key": "originY",
+              "value": 70
+            },
+            {
+              "key": "sizeWidth",
+              "value": 180
+            },
+            {
+              "key": "sizeHeight",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "classname": "NodeVisible",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": "10000"
+            },
+            {
+              "key": "Visible",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "classname": "RectangleCollisionTest",
+          "dataitems": [
+            {
+              "key": "Tag_A",
+              "value": "10000"
+            },
+            {
+              "key": "ComName_A",
+              "value": "CCArmature"
+            },
+            {
+              "key": "AOffsetX",
+              "value": 0
+            },
+            {
+              "key": "AOffsetY",
+              "value": 0
+            },
+            {
+              "key": "Tags",
+              "value": ""
+            },
+            {
+              "key": "ComName_B",
+              "value": "CCSprite"
+            },
+            {
+              "key": "BOffsetX",
+              "value": 0
+            },
+            {
+              "key": "BOffsetY",
+              "value": 0
             }
           ]
         }
