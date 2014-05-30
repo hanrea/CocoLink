@@ -401,7 +401,7 @@ bool RectangleCollisionTest::isRectCollision(Rect rect1, Rect rect2)
     return true;
 }
 
-cocos2d::CCNode* RectangleCollisionTest::getNode(cocos2d::Node *pNode, std::string comName)
+cocos2d::CCNode* RectangleCollisionTest::getNode(cocos2d::Node *pNode, std::string )
 {
     do 
     {

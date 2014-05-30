@@ -16,14 +16,13 @@ end
 
 function TimeElapsed:init()
 	local function update()
-		_tmpTime += dt;
-		if (self._tmpTime > _totalTime)
-		{
-			--self._tmpTime = 0.0f;
+		 self._tmpTime =self._tmpTime+ dt;
+		if self._tmpTime > _totalTime then
+			cclog("self._tmpTime:  %s",self._tmpTime)
 			self._suc = true;
-		}
+		end
 	end
-	_scheduler->schedule(schedule_selector(self.update), this, 0.0f , kRepeatForever, 0.0f, false);
+	 CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(update, 0.0, false)
     return true
 end
 
@@ -77,13 +76,13 @@ function ArmatureActionState:init()
 		return
 	end
 	
-	local function animationEvent(armature,movementType,movementID)
-		
+	local function animationEvent(armatureBack,movementType,movementID)
 		if movementType == self._state and movementID == self._aniname then
 			self._suc = true
 		end
-	end
-	ccs.TriggerMng:getInstance():addArmatureMovementCallBack(pAr, this, movementEvent_selector(ArmatureActionState::animationEvent));
+    end
+
+    pAr:getAnimation():setMovementEventCallFunc(animationEvent)
 	
     return true
 end
@@ -115,9 +114,6 @@ end
 function ArmatureActionState:removeAll()
     print("ArmatureActionState::removeAll")
 end
-
-
-
 
 ------------
 local NodeInRect = class("NodeInRect")
@@ -221,18 +217,27 @@ end
 ------------
 
 
-未完成
+--
 local RectangleCollisionTest = class("RectangleCollisionTest")
-RectangleCollisionTest._tag  = -1
-RectangleCollisionTest._origin = nil
-RectangleCollisionTest._size   = nil
+RectangleCollisionTest._tag_A = -1
+RectangleCollisionTest._comName_A = ""
+RectangleCollisionTest._aOffsetX = 0
+RectangleCollisionTest._aOffsetY = 0
+RectangleCollisionTest._vecTags = -1
+RectangleCollisionTest._comName_B = ""
+RectangleCollisionTest._bOffsetX = 0
+RectangleCollisionTest._bOffsetY = 0
 
 function RectangleCollisionTest:ctor()
-    self._tag = -1
-    self._origin = nil
-    self._size   = nil
-    self._origin = cc.p(0, 0)
-    self._size   = cc.size(0, 0)
+    self._tag_A = -1
+	self._comName_A = ""
+	self._aOffsetX = -1
+	self._aOffsetY = -1
+	self._vecTags = -1
+	self._comName_B = ""
+	self._bOffsetX = -1
+	self._bOffsetY = -1
+
 end
 
 function RectangleCollisionTest:init()
@@ -240,9 +245,51 @@ function RectangleCollisionTest:init()
 end
 
 function RectangleCollisionTest:detect(event,touch)
-    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
-    if nil ~= node and math.abs(node:getPositionX() - self._origin.x) <= self._size.width and math.abs(node:getPositionY() - self._origin.y) <= self._size.height then
-        return true
+	--辅助方法
+	local function isRectCollision(rect1,rect2)
+		local x1 = rect1.origin.x
+		local y1 = rect1.origin.y
+		local w1 = rect1.size.width
+		local h1 = rect1.size.height
+		local x2 = rect2.origin.x
+		local y2 = rect2.origin.y
+		local w2 = rect2.size.width
+		local h2 = rect2.size.height
+
+		if math.abs(x1 - x2) > (w1 * 0.5 + w2 * 0.5) or math.abs(y1 - y2) > (h1 * 0.5 + h2 * 0.5) then
+			return false;
+		end
+		return true;
+	end
+	--辅助方法
+	local function getNode(pNode,comName)
+		
+		 if nil ~= pNode then
+			cclog("pNode is null！")
+			return 
+		 end
+		 return pNode:getComponent(comName):getNode()
+	end
+
+	--判断方法
+    local pComNodeA = ccs.SceneReader:getInstance():getNodeByTag(self._tag_A)
+    if nil ~= pComNodeA and ccs.SceneReader:getInstance():getAttachComponentType()==ccs.SceneReader.AttachComponentType.EMPTY_NODE then
+        pComNodeA =getNode(pComNodeA,self._comName_A)
+		if nil ~= pComNodeA then
+			for	i,iter in pairs(self._vecTags) do
+				local pComNodeB = ccs.SceneReader:getInstance():getNodeByTag(iter)
+				if nil~= pComNodeB and ccs.SceneReader:getInstance():getAttachComponentType()==ccs.SceneReader.AttachComponentType.EMPTY_NODE then
+					pComNodeB =getNode(pComNodeB,self._comName_B)
+				end
+				local p1 = pComNodeA:getPosition()
+				local p2 = pComNodeB:getPosition()
+				local ARect =cc.rect(p1.x, p1.y, pComNodeA:getContentSize().width + _aOffsetX, pComNodeA:getContentSize().height + _aOffsetY)
+				local BRect =cc.rect(p2.x, p2.y, pComNodeB:getContentSize().width + _bOffsetX, pComNodeB:getContentSize().height + _bOffsetY)
+				if isRectCollision(ARect, BRect) then
+					return true
+				end
+			end			
+		end
     end
     return false
 end
