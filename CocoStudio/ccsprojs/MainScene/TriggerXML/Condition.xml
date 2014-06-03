@@ -8,9 +8,7 @@
 	<Condition ClassName="RectangleCollisionTest" Name="RectangleCollisionTest" CHName="节点碰撞检测（RectangleCollisionTest）"/>
 	
 	<Condition ClassName="WidgetIsClick" Name="WidgetIsClick" CHName="Widget被点击"/>
-	<Condition ClassName="NodeIsClick" Name="NodeIsClick" CHName="Node被点击"/>
-	<Condition ClassName="TabelIsClick" Name="TabelIsClick" CHName="点击表格"/>
-	<Condition ClassName="IsSecondTimeSelected" Name="IsSecondTimeSelected" CHName="第二次选中"/>
+	<Condition ClassName="TabelIsClick" Name="TabelIsClick" CHName="单元匹配"/>
 	
   </ConditionList>
 </Root>

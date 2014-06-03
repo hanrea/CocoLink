@@ -1,4 +1,62 @@
 require "CocoStudio"
+
+-----------------
+local TMoveTo = class("TMoveTo")
+	TMoveTo._tag = -1
+	TMoveTo._x  = 0
+	TMoveTo._y  = 0
+	TMoveTo._duration = 0
+
+function TMoveTo:ctor()
+    self._tag = -1
+    self._x  = 0
+    self._y  = 0
+    self._duration = 0
+end
+
+function TMoveTo:init()
+    return true
+end
+
+function TMoveTo:done(event,touch)
+    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+    local  actionTo = cc.MoveTo:create(self._duration, cc.p(self._x, self._y))
+    if nil == actionTo then
+        return
+    end
+	 node:runAction(actionTo)
+	cclog("runAction TMoveBy  X: %s Y: %s", self._x , self._y )
+end
+
+function TMoveTo:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "x" then
+                self._x = subDict["value"]
+            elseif key == "y" then
+                self._y = subDict["value"]
+			 elseif key == "Duration" then
+                self._duration = subDict["value"]
+            end
+        end
+    end
+end
+
+function TMoveTo:removeAll()
+    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    node:getActionManager():removeAllActions()
+    print("TMoveTo::removeAll")
+end
+
 ------------
 local TMoveBy = class("TMoveBy")
 TMoveBy._tag = -1
@@ -64,63 +122,6 @@ function TMoveBy:removeAll()
     node:getActionManager():removeAllActions()
     print("TMoveBy::removeAll")
 end
------------------
-local TMoveTo = class("TMoveTo")
-	TMoveTo._tag = -1
-	TMoveTo._x  = 0
-	TMoveTo._y  = 0
-	TMoveTo._duration = 0
-
-function TMoveTo:ctor()
-    self._tag = -1
-    self._x  = 0
-    self._y  = 0
-    self._duration = 0
-end
-
-function TMoveTo:init()
-    return true
-end
-
-function TMoveTo:done(event,touch)
-    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
-    if nil == node then
-        return
-    end
-    local  actionTo = cc.MoveTo:create(self._duration, cc.p(self._x, self._y))
-    if nil == actionTo then
-        return
-    end
-	 node:runAction(actionTo)
-	cclog("runAction TMoveBy  X: %s Y: %s", self._x , self._y )
-end
-
-function TMoveTo:serialize(value)
-    local dataItems = value["dataitems"]
-    if nil ~= dataItems then
-        local count = table.getn(dataItems)
-        for i = 1, count do
-            local subDict =  dataItems[i]
-            local key = subDict["key"]
-            if key == "Tag" then
-                self._tag = subDict["value"]
-            elseif key == "x" then
-                self._x = subDict["value"]
-            elseif key == "y" then
-                self._y = subDict["value"]
-			 elseif key == "Duration" then
-                self._duration = subDict["value"]
-            end
-        end
-    end
-end
-
-function TMoveTo:removeAll()
-    local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
-    node:getActionManager():removeAllActions()
-    print("TMoveTo::removeAll")
-end
-
 -----------------
 local TScaleTo = class("TScaleTo")
 TScaleTo._tag  = -1
@@ -390,7 +391,61 @@ function TSkewBy:removeAll()
     print("TSkewBy::removeAll")
 end
 
+-------------------
 
+
+local TRotateTo = class("TRotateTo")
+TRotateTo._tag 			= -1
+TRotateTo._duration 	= 0
+TRotateTo._deltaAngle 	= 0
+
+function TRotateTo:ctor()
+self._tag 			= -1
+self._duration 		= 0
+self._deltaangle 	= 0
+
+
+end
+
+function TRotateTo:init()
+    return true
+end
+
+function TRotateTo:done(event,touch)
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
+    if nil == node then
+        return
+    end
+
+    local actionto = cc.RotateTo:create(self._duration, self._deltaangle)
+    if nil == actionto then
+        return
+    end
+		cclog("runAction RotateTo %s",self._deltaangle)
+    node:runAction(actionto)
+end
+
+function TRotateTo:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "Tag" then
+                self._tag = subDict["value"]
+            elseif key == "Duration" then
+                self._duration = subDict["value"]
+            elseif key == "DeltaAngle" then
+                self._deltaAngle = subDict["value"]
+            end
+        end
+    end
+end
+
+function TRotateTo:removeAll()
+    cclog("TRotateTo::removeAll")
+end
 -------------------
 local TRotateBy = class("TRotateBy")
 TRotateBy._tag  = -1
@@ -465,61 +520,7 @@ function TRotateBy:removeAll()
 end
 
 
--------------------
 
-
-local TRotateTo = class("TRotateTo")
-TRotateTo._tag 			= -1
-TRotateTo._duration 	= 0
-TRotateTo._deltaAngle 	= 0
-
-function TRotateTo:ctor()
-self._tag 			= -1
-self._duration 		= 0
-self._deltaangle 	= 0
-
-
-end
-
-function TRotateTo:init()
-    return true
-end
-
-function TRotateTo:done(event,touch)
-	local node = ccs.SceneReader:getInstance():getNodeByTag(self._tag)
-    if nil == node then
-        return
-    end
-
-    local actionto = cc.RotateTo:create(self._duration, self._deltaangle)
-    if nil == actionto then
-        return
-    end
-		cclog("runAction RotateTo %s",self._deltaangle)
-    node:runAction(actionto)
-end
-
-function TRotateTo:serialize(value)
-    local dataItems = value["dataitems"]
-    if nil ~= dataItems then
-        local count = table.getn(dataItems)
-        for i = 1, count do
-            local subDict =  dataItems[i]
-            local key = subDict["key"]
-            if key == "Tag" then
-                self._tag = subDict["value"]
-            elseif key == "Duration" then
-                self._duration = subDict["value"]
-            elseif key == "DeltaAngle" then
-                self._deltaAngle = subDict["value"]
-            end
-        end
-    end
-end
-
-function TRotateTo:removeAll()
-    cclog("TRotateTo::removeAll")
-end
 ------------------
 
 local TriggerState = class("TriggerState")
@@ -989,11 +990,132 @@ end
 function CreatLeaveFromJson:removeAll()
     print("CreatLeaveFromJson::removeAll")
 end
-ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
+
+
+
+------------------
+
+local ChangeAtlasValue = class("ChangeAtlasValue")
+ChangeAtlasValue._NodeTag  = -1
+ChangeAtlasValue._WidgetTag = -1
+ChangeAtlasValue._AtlasValue = true
+
+function ChangeAtlasValue:ctor()
+	self._NodeTag  = -1
+	self._WidgetTag = -1
+	self._AtlasValue = ""
+
+end
+
+function ChangeAtlasValue:init()
+    return true
+end
+
+function ChangeAtlasValue:done(event,touch)
+	cclog(" %s  ===   %s    ",self._NodeTag,self._WidgetTag )
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag):getComponent("GUIComponent")
+	local uilayer = node:getNode()
+	local widget = nil
+	if nil~= uilayer then
+		widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
+	end
+	
+	widget:setStringValue(self._AtlasValue)
+	
+end
+
+function ChangeAtlasValue:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "NodeTag" then
+                self._NodeTag = subDict["value"]
+            elseif key == "WidgetTag" then
+                self._WidgetTag = subDict["value"]
+			 elseif key == "AltasValue" then
+                self._AtlasValue = subDict["value"]
+            end
+        end
+    end
+end
+
+function ChangeAtlasValue:removeAll()
+    print("ChangeAtlasValue::removeAll")
+end
+
+
+------------------
+
+local ChangeProgressValue = class("ChangeProgressValue")
+ChangeProgressValue._NodeTag  = -1
+ChangeProgressValue._WidgetTag  = -1
+ChangeProgressValue._ProgressValue = ""
+
+
+function ChangeProgressValue:ctor()
+	self._NodeTag  = -1
+	self._WidgetTag = -1
+	self._ProgressValue = ""
+
+end
+
+function ChangeProgressValue:init()
+    return true
+end
+
+function ChangeProgressValue:done(event,touch)
+	cclog(" %s  ===   %s    ",self._NodeTag,self._WidgetTag )
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag):getComponent("GUIComponent")
+	local uilayer = node:getNode()
+	local widget = nil
+	if nil~= uilayer then
+		widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
+	end
+	
+	widget:setPercent(self._ProgressValue)
+end
+
+function ChangeProgressValue:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "NodeTag" then
+                self._NodeTag = subDict["value"]
+            elseif key == "WidgetTag" then
+                self._WidgetTag = subDict["value"]
+			 elseif key == "ProgressValue" then
+                self._ProgressValue = subDict["value"]
+            end
+        end
+    end
+end
+
+function ChangeProgressValue:removeAll()
+    print("ChangeProgressValue::removeAll")
+end
+
 ccs.registerTriggerClass("TMoveTo",TMoveTo.new)
-ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
+ccs.registerTriggerClass("TMoveBy",TMoveBy.new)
 ccs.registerTriggerClass("TScaleTo",TScaleTo.new)
 ccs.registerTriggerClass("TScaleBy",TScaleBy.new)
-ccs.registerTriggerClass("TriggerState",TriggerState.new)
-ccs.registerTriggerClass("TRotateBy",TRotateBy.new)
+ccs.registerTriggerClass("TSkewTo",TSkewTo.new)
+ccs.registerTriggerClass("TSkewBy",TSkewBy.new)
 ccs.registerTriggerClass("TRotateTo",TRotateTo.new)
+ccs.registerTriggerClass("TRotateBy",TRotateBy.new)
+ccs.registerTriggerClass("TriggerState",TriggerState.new)
+ccs.registerTriggerClass("PlayMusic",PlayMusic.new)
+ccs.registerTriggerClass("ArmaturePlayAction",ArmaturePlayAction.new)
+--ccs.registerTriggerClass("SequenceMoveTo",SequenceMoveTo.new)
+ccs.registerTriggerClass("ChangeDoubleAttribute",ChangeDoubleAttribute.new)
+ccs.registerTriggerClass("SetNodeVisible",SetNodeVisible.new)
+ccs.registerTriggerClass("PlayUIAnimation",PlayUIAnimation.new)
+ccs.registerTriggerClass("StopAllActions",StopAllActions.new)
+ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
+ccs.registerTriggerClass("ChangeAtlasValue",ChangeAtlasValue.new)
+ccs.registerTriggerClass("ChangeProgressValue",ChangeProgressValue.new)

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" standalone="yes" ?>
+<Root>
+  <Item Type="NodeTag" Name="NodeTag" CHName="渲染节点标签" Key = "NodeTag" Default="10000" />
+  <Item Type="IntegerUpDown" Name="WidgetTag" CHName="WidgetTag" Key = "WidgetTag" Default="60"/>
+  <Item Type="IntegerUpDown" Name="ProgressValue" CHName="进度值" Key = "ProgressValue" Default="1"/>
+</Root>

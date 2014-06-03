@@ -1,6 +1,9 @@
 [
   "publish/GUI/button.png",
   "menu1.png",
+  "publish/GUI/labelatlasimg.png",
+  "publish/GUI/loadingbar.png",
   "publish\\MainScene.json",
-  "publish/StartPage_1.json"
+  "publish/StartPage_1.json",
+  "publish/MainUI_1.json"
 ]

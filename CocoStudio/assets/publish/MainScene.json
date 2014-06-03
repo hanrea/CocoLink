@@ -65,8 +65,8 @@
       "scalex": 3.59154916,
       "scaley": 2.25,
       "visible": 1,
-      "x": 124.99998474121094,
-      "y": 343.99996948242188,
+      "x": 195.83332824707031,
+      "y": 338.16665649414062,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -77,6 +77,34 @@
           "file": null,
           "fileData": {
             "path": "menu1.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10014,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 0,
+      "y": 0,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "publish/MainUI_1.json",
             "plistFile": "",
             "resourceType": 0
           }
@@ -323,60 +351,36 @@
           ]
         },
         {
-          "classname": "PlayMusic",
+          "classname": "ChangeAtlasValue",
           "dataitems": [
             {
-              "key": "Tag",
-              "value": 10000
+              "key": "NodeTag",
+              "value": 10014
             },
             {
-              "key": "componentName",
-              "value": "CCComAudio"
+              "key": "WidgetTag",
+              "value": 7
             },
             {
-              "key": "type",
-              "value": 1
+              "key": "AltasValue",
+              "value": "966"
             }
           ]
         },
         {
-          "classname": "SequenceMoveTo",
+          "classname": "ChangeProgressValue",
           "dataitems": [
             {
-              "key": "Tag",
-              "value": "10000"
+              "key": "NodeTag",
+              "value": 10014
             },
             {
-              "key": "EndX",
-              "value": -120
+              "key": "WidgetTag",
+              "value": 9
             },
             {
-              "key": "EndY",
-              "value": 0
-            },
-            {
-              "key": "EndDuration",
-              "value": 2
-            },
-            {
-              "key": "StartX",
-              "value": 0
-            },
-            {
-              "key": "StartY",
-              "value": 0
-            },
-            {
-              "key": "StartDuration",
-              "value": 0
-            },
-            {
-              "key": "DelayTime",
-              "value": -1
-            },
-            {
-              "key": "IsRepeatForever",
-              "value": 1
+              "key": "ProgressValue",
+              "value": 50
             }
           ]
         }
@@ -396,111 +400,6 @@
             {
               "key": "WidgetName",
               "value": ""
-            }
-          ]
-        },
-        {
-          "classname": "TimeElapsed",
-          "dataitems": [
-            {
-              "key": "TotalTime",
-              "value": 10
-            }
-          ]
-        },
-        {
-          "classname": "ArmatureActionState",
-          "dataitems": [
-            {
-              "key": "Tag",
-              "value": "10000"
-            },
-            {
-              "key": "componentName",
-              "value": "CCArmature"
-            },
-            {
-              "key": "AnimationName",
-              "value": "run"
-            },
-            {
-              "key": "ActionType",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "classname": "NodeInRect",
-          "dataitems": [
-            {
-              "key": "Tag",
-              "value": "10000"
-            },
-            {
-              "key": "originX",
-              "value": 180
-            },
-            {
-              "key": "originY",
-              "value": 70
-            },
-            {
-              "key": "sizeWidth",
-              "value": 180
-            },
-            {
-              "key": "sizeHeight",
-              "value": 70
-            }
-          ]
-        },
-        {
-          "classname": "NodeVisible",
-          "dataitems": [
-            {
-              "key": "Tag",
-              "value": "10000"
-            },
-            {
-              "key": "Visible",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "classname": "RectangleCollisionTest",
-          "dataitems": [
-            {
-              "key": "Tag_A",
-              "value": "10000"
-            },
-            {
-              "key": "ComName_A",
-              "value": "CCArmature"
-            },
-            {
-              "key": "AOffsetX",
-              "value": 0
-            },
-            {
-              "key": "AOffsetY",
-              "value": 0
-            },
-            {
-              "key": "Tags",
-              "value": ""
-            },
-            {
-              "key": "ComName_B",
-              "value": "CCSprite"
-            },
-            {
-              "key": "BOffsetX",
-              "value": 0
-            },
-            {
-              "key": "BOffsetY",
-              "value": 0
             }
           ]
         }

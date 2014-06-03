@@ -65,8 +65,8 @@
       "scalex": 3.59154916,
       "scaley": 2.25,
       "visible": 1,
-      "x": 124.99998474121094,
-      "y": 343.99996948242188,
+      "x": 195.83332824707031,
+      "y": 338.16665649414062,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -77,6 +77,34 @@
           "file": null,
           "fileData": {
             "path": "menu1.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10014,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 0,
+      "y": 0,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "publish/MainUI_1.json",
             "plistFile": "",
             "resourceType": 0
           }
@@ -319,6 +347,40 @@
             {
               "key": "IsReverse",
               "value": 1
+            }
+          ]
+        },
+        {
+          "classname": "ChangeAtlasValue",
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10014
+            },
+            {
+              "key": "WidgetTag",
+              "value": 7
+            },
+            {
+              "key": "AltasValue",
+              "value": "966"
+            }
+          ]
+        },
+        {
+          "classname": "ChangeProgressValue",
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10014
+            },
+            {
+              "key": "WidgetTag",
+              "value": 9
+            },
+            {
+              "key": "ProgressValue",
+              "value": 50
             }
           ]
         }
