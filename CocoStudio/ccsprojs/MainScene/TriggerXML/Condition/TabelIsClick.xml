@@ -1,7 +1,18 @@
 ﻿<?xml version="1.0" standalone="yes" ?>
 <Root>
-  <Item Type="NodeTag" Name="Node Tag" CHName="所属节点" Key = "NodeTag" Default="10000"/>
-  <Item Type="IntegerUpDown" Name="WidgetTag" CHName="控件Tag" Key = "WidgetTag" Default="1"/>
-  <Item Type="TextBox" Name="WidgetName" CHName="控件Name" Key = "WidgetName" Default=""/>
-
+ <Item Type="TextBox" Name="LeaveFile" CHName = "关卡文件名" Key = "LeaveFile" Default="res/leave.txt"/>
+ 
+  <Item Type="IntegerUpDown" Name="Row" CHName = "行数" Key = "Row" Default="8"/>
+  <Item Type="IntegerUpDown" Name="Col" CHName = "列数" Key = "Col" Default="8"/>
+  
+   <Item Type="DoubleUpDown" Name="startX" CHName = "起始坐标X" Key = "startX" Default="150"/>
+  <Item Type="DoubleUpDown" Name="startY" CHName = "起始坐标Y" Key = "startY" Default="60"/>
+  
+   <Item Type="DoubleUpDown" Name="ItemWidth" CHName = "单元宽度" Key = "ItemWidth" Default="80"/>
+  <Item Type="DoubleUpDown" Name="Itemheigth" CHName = "单元高度" Key = "Itemheigth" Default="80"/>
+  
+  <Item Type="DoubleUpDown" Name="ScaleX" CHName = "缩放X" Key = "ScaleX" Default="1.0"/>
+  <Item Type="DoubleUpDown" Name="ScaleY" CHName = "缩放Y" Key = "ScaleY" Default="1.0"/>
+  
+  
 </Root>

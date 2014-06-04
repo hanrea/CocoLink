@@ -932,21 +932,20 @@ function CreatLeaveFromJson:done(event,touch)
 		table.insert(tabel, splitlist)
 	end
 
-	 require "src/TriggerHelper"
+	require "src/TriggerHelper"
 	 setLeaveTabel(tabel)
 	
 	node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
 	 if nil == node then
         return
     end
-	cclog(" 总行数 %s 列数： %s   ",self._Row,self._Col)
+	cclog(" 宽数 %s 高： %s   ",self._ItemWidth,self._Itemheigth)
 	for i=2,self._Row-1  do
 		for j=2,self._Col-1 do
 			item = ccui.CheckBox:create()
-			item:setPosition(cc.p(self._startX/2 +(j*self._ItemWidth), self._startY/2 +((self._Col-i-1)*self._Itemheigth)))
+			item:setPosition(cc.p(self._startX +((j-2)*self._ItemWidth), self._startY +((self._Col-i)*self._Itemheigth)))
 			item:loadTextureBackGround(tostring("res/"..tabel[i][j]..".png"))
-			--item:setWidth(self._ItemWidth)
-			--item:setHeight(self._Itemheigth)
+			item:setSize(cc.size(self._ItemWidth,self._Itemheigth))
 			item:setScaleX(self._ScaleX)
 			item:setScaleY(self._ScaleY)
 			item:setTouchEnabled(false)
@@ -992,7 +991,6 @@ function CreatLeaveFromJson:removeAll()
 end
 
 
-
 ------------------
 
 local ChangeAtlasValue = class("ChangeAtlasValue")
@@ -1019,7 +1017,6 @@ function ChangeAtlasValue:done(event,touch)
 	if nil~= uilayer then
 		widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
 	end
-	
 	widget:setStringValue(self._AtlasValue)
 	
 end

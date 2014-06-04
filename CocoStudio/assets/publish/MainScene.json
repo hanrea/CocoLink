@@ -37,8 +37,8 @@
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 0,
-      "y": 0,
+      "x": 2.9999542236328125,
+      "y": -3.9999847412109375,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -60,41 +60,13 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 10013,
-      "rotation": 0,
-      "scalex": 3.59154916,
-      "scaley": 2.25,
-      "visible": 1,
-      "x": 195.83332824707031,
-      "y": 338.16665649414062,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "menu1.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
       "objecttag": 10014,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
       "x": 0,
-      "y": 0,
+      "y": 640.00006103515625,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -114,7 +86,7 @@
   ],
   "CanvasSize": {
     "_height": 640,
-    "_width": 960
+    "_width": 1136
   },
   "Triggers": [
     {
@@ -186,27 +158,27 @@
             },
             {
               "key": "startX",
-              "value": 110
+              "value": 300
             },
             {
               "key": "startY",
-              "value": 150
+              "value": 60
             },
             {
               "key": "ItemWidth",
-              "value": 40
+              "value": 80
             },
             {
               "key": "Itemheigth",
-              "value": 40
+              "value": 80
             },
             {
               "key": "ScaleX",
-              "value": 0.5
+              "value": 1
             },
             {
               "key": "ScaleY",
-              "value": 0.5
+              "value": 1
             }
           ]
         },
@@ -219,7 +191,7 @@
             },
             {
               "key": "x",
-              "value": -1000
+              "value": -1136
             },
             {
               "key": "y",
@@ -244,11 +216,11 @@
           "dataitems": [
             {
               "key": "ID",
-              "value": 5
+              "value": 4
             },
             {
               "key": "State",
-              "value": 1
+              "value": 0
             }
           ]
         },
@@ -270,11 +242,11 @@
           "dataitems": [
             {
               "key": "ID",
-              "value": 4
+              "value": 5
             },
             {
               "key": "State",
-              "value": 0
+              "value": 1
             }
           ]
         },
@@ -283,7 +255,7 @@
           "dataitems": [
             {
               "key": "Tag",
-              "value": 10013
+              "value": 10014
             },
             {
               "key": "x",
@@ -291,11 +263,11 @@
             },
             {
               "key": "y",
-              "value": 100
+              "value": 0
             },
             {
               "key": "Duration",
-              "value": 1
+              "value": 0
             }
           ]
         }
@@ -330,27 +302,6 @@
     {
       "actions": [
         {
-          "classname": "TRotateBy",
-          "dataitems": [
-            {
-              "key": "Tag",
-              "value": 10013
-            },
-            {
-              "key": "DeltaAngle",
-              "value": 180
-            },
-            {
-              "key": "Duration",
-              "value": 1
-            },
-            {
-              "key": "IsReverse",
-              "value": 1
-            }
-          ]
-        },
-        {
           "classname": "ChangeAtlasValue",
           "dataitems": [
             {
@@ -380,7 +331,7 @@
             },
             {
               "key": "ProgressValue",
-              "value": 50
+              "value": -1
             }
           ]
         }
@@ -390,16 +341,40 @@
           "classname": "TabelIsClick",
           "dataitems": [
             {
-              "key": "NodeTag",
-              "value": 10009
+              "key": "LeaveFile",
+              "value": "res/leave.txt"
             },
             {
-              "key": "WidgetTag",
+              "key": "Row",
+              "value": 8
+            },
+            {
+              "key": "Col",
+              "value": 8
+            },
+            {
+              "key": "startX",
+              "value": 300
+            },
+            {
+              "key": "startY",
+              "value": 60
+            },
+            {
+              "key": "ItemWidth",
+              "value": 80
+            },
+            {
+              "key": "Itemheigth",
+              "value": 80
+            },
+            {
+              "key": "ScaleX",
               "value": 1
             },
             {
-              "key": "WidgetName",
-              "value": ""
+              "key": "ScaleY",
+              "value": 1
             }
           ]
         }

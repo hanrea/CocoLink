@@ -399,16 +399,26 @@ end
 ------------
 
 local TabelIsClick = class("TabelIsClick")
-TabelIsClick._NodeTag  	= -1
-TabelIsClick._WidgetTag 	= nil
-TabelIsClick._WidgetName  	= nil
+TabelIsClick._LeaveFile = ""
+TabelIsClick._Row    	= 0
+TabelIsClick._Col 		= 0
+TabelIsClick._startX  	= 0
+TabelIsClick._startY 	= 0
+TabelIsClick._ItemWidth = 0
+TabelIsClick._Itemheigth= 0
+TabelIsClick._ScaleX  	= 0
+TabelIsClick._ScaleY	= 0
 
 function TabelIsClick:ctor()
-    self._NodeTag 		= -1
-    self._WidgetTag		= nil
-    self._WidgetName	= nil
-	self._WidgetTag		= -1
-    self._WidgetName	= ""
+	self._LeaveFile = ""
+	self._Row    	= 0
+    self._Col 		= 0
+	self._startX  	= 0
+    self._startY 	= 0
+	self._ItemWidth = 0
+    self._Itemheigth= 0
+	self._ScaleX  	= 0
+    self._ScaleY	= 0
 end
 
 function TabelIsClick:init()
@@ -416,33 +426,35 @@ function TabelIsClick:init()
 end
 
 function TabelIsClick:detect(event,touch)
+	if touch~=nil then
+		cclog("touc ==>  %s ===%s ",touch:getLocation().x,touch:getLocation().y)
+	end
 	
+	cclog("self._startX ===>%s",self._startX )
 	clickTabel ={col=0 ,row=0}
 	
-	for i=1,8 do
-	
-		if touch:getLocation().x > 72+40*(i-1) then
-			if touch:getLocation().x< 72+40*i then
-			clickTabel["col"] = i
+	for i=2,self._Col-1 do
+		if touch:getLocation().x > self._startX+self._ItemWidth *(i-2)-(self._ItemWidth/2) then
+			if touch:getLocation().x< self._startX+self._ItemWidth *(i-2)+(self._ItemWidth/2) then
+					clickTabel["col"] = i
 				break
 			end
 		end
 	end
-	
-	for i=0,8 do
-		if touch:getLocation().y < 14+40*(9-i) then
-			if touch:getLocation().y > 14+40*(9-i-1) then
+	for i=2,self._Row-1 do
+		if touch:getLocation().y < self._startY + self._Itemheigth*(self._Row-i)+(self._Itemheigth/2) then
+			if touch:getLocation().y > self._startY + self._Itemheigth*(self._Row-i)-(self._Itemheigth/2) then
 				clickTabel["row"] = i
 				break
 			end
 		end
 	end
-	
-
+		cclog("本次点击位置【%s】【%s】",clickTabel["col"],clickTabel["row"])
 	require "src/TriggerHelper"
 	local clitab =getIndexTabel()
-	cclog("上次点击的位置 【%s】【%s】",clitab["cliA"]["col"],clitab["cliA"]["row"])
-	if clitab["cliA"]["col"]~=0 then
+	--cclog("上次点击的位置 【%s】【%s】",clitab["cliA"]["col"],clitab["cliA"]["row"])
+
+	if clitab["cliA"]["col"]~=0 and clitab["cliA"]["row"]~=0 then
 		setIndexTabelB(clickTabel)
 		require "src/TriggerHelper"
 		local tab= getLeaveTabel()
@@ -479,12 +491,24 @@ function TabelIsClick:serialize(value)
         for i = 1, count do
             local subDict =  dataItems[i]
             local key = subDict["key"]
-            if key == "NodeTag" then
-                self._NodeTag = subDict["value"]
-            elseif key == "WidgetTag" then
-                self._WidgetTag = subDict["value"]
-            elseif key == "WidgetName" then
-                self._WidgetName = subDict["value"]
+            if key == "LeaveFile" then
+                self._LeaveFile = subDict["value"]
+			elseif key == "Row" then
+                self._Row = subDict["value"]
+			elseif key == "Col" then
+                self._Col = subDict["value"]
+			elseif key == "startX" then
+                self._startX = subDict["value"]
+			elseif key == "startY" then
+                self._startY = subDict["value"]
+			elseif key == "ItemWidth" then
+                self._ItemWidth = subDict["value"]
+			elseif key == "Itemheigth" then
+                self._Itemheigth = subDict["value"]
+			elseif key == "ScaleX" then
+                self._ScaleX = subDict["value"]
+			elseif key == "ScaleY" then
+                self._ScaleY = subDict["value"]
             end
         end
     end
