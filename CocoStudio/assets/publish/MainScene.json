@@ -314,7 +314,11 @@
             },
             {
               "key": "AltasValue",
-              "value": "966"
+              "value": "2"
+            },
+            {
+              "key": "IsRelative",
+              "value": 1
             }
           ]
         },
@@ -332,6 +336,10 @@
             {
               "key": "ProgressValue",
               "value": -1
+            },
+            {
+              "key": "IsRelative",
+              "value": 1
             }
           ]
         }

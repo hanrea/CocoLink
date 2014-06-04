@@ -996,13 +996,13 @@ end
 local ChangeAtlasValue = class("ChangeAtlasValue")
 ChangeAtlasValue._NodeTag  = -1
 ChangeAtlasValue._WidgetTag = -1
-ChangeAtlasValue._AtlasValue = true
-
+ChangeAtlasValue._AtlasValue = ""
+ChangeAtlasValue._IsRelative = false
 function ChangeAtlasValue:ctor()
 	self._NodeTag  = -1
 	self._WidgetTag = -1
 	self._AtlasValue = ""
-
+	self._IsRelative = false
 end
 
 function ChangeAtlasValue:init()
@@ -1017,8 +1017,17 @@ function ChangeAtlasValue:done(event,touch)
 	if nil~= uilayer then
 		widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
 	end
-	widget:setStringValue(self._AtlasValue)
 	
+	if self._IsRelative then
+		
+		local value = tonumber(widget:getStringValue())
+		cclog("文本相对值 %s ",value)
+		value = value + tonumber(self._AtlasValue)
+		cclog("文本相对值 %s ",value)
+		widget:setStringValue(tostring( value ))
+	else
+		widget:setStringValue(self._AtlasValue)
+	end
 end
 
 function ChangeAtlasValue:serialize(value)
@@ -1034,6 +1043,8 @@ function ChangeAtlasValue:serialize(value)
                 self._WidgetTag = subDict["value"]
 			 elseif key == "AltasValue" then
                 self._AtlasValue = subDict["value"]
+			elseif key == "IsRelative" then
+                self._IsRelative = (subDict["value"] == 1  or  false) and true 
             end
         end
     end
@@ -1043,20 +1054,19 @@ function ChangeAtlasValue:removeAll()
     print("ChangeAtlasValue::removeAll")
 end
 
-
 ------------------
 
 local ChangeProgressValue = class("ChangeProgressValue")
 ChangeProgressValue._NodeTag  = -1
 ChangeProgressValue._WidgetTag  = -1
 ChangeProgressValue._ProgressValue = ""
-
+ChangeProgressValue._IsRelative = false
 
 function ChangeProgressValue:ctor()
 	self._NodeTag  = -1
 	self._WidgetTag = -1
 	self._ProgressValue = ""
-
+	self._IsRelative = false
 end
 
 function ChangeProgressValue:init()
@@ -1071,8 +1081,12 @@ function ChangeProgressValue:done(event,touch)
 	if nil~= uilayer then
 		widget=ccui.Helper:seekWidgetByTag(uilayer, self._WidgetTag)
 	end
-	
-	widget:setPercent(self._ProgressValue)
+	if self._IsRelative then
+		cclog("相对值 ")
+		widget:setPercent(tonumber(widget:getPercent() + tonumber(self._ProgressValue)))
+	else
+		widget:setPercent(tonumber(self._ProgressValue))
+	end
 end
 
 function ChangeProgressValue:serialize(value)
@@ -1086,8 +1100,10 @@ function ChangeProgressValue:serialize(value)
                 self._NodeTag = subDict["value"]
             elseif key == "WidgetTag" then
                 self._WidgetTag = subDict["value"]
-			 elseif key == "ProgressValue" then
+			elseif key == "ProgressValue" then
                 self._ProgressValue = subDict["value"]
+			elseif key == "IsRelative" then
+                self._IsRelative = (subDict["value"] == 1  or  false) and true 
             end
         end
     end

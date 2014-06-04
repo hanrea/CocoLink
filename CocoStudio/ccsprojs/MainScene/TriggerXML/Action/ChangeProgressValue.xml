@@ -3,4 +3,10 @@
   <Item Type="NodeTag" Name="NodeTag" CHName="渲染节点标签" Key = "NodeTag" Default="10000" />
   <Item Type="IntegerUpDown" Name="WidgetTag" CHName="WidgetTag" Key = "WidgetTag" Default="60"/>
   <Item Type="IntegerUpDown" Name="ProgressValue" CHName="进度值" Key = "ProgressValue" Default="1"/>
+   <Item Type="ComboBox" Name="IsRelative" CHName="相对" Key = "IsRelative" Default="0">
+    <Childes>
+		<Child Name="No" CHName="否" ID="0"/>
+		<Child Name="Yes" CHName="是" ID="1"/>
+    </Childes>
+  </Item>
 </Root>
