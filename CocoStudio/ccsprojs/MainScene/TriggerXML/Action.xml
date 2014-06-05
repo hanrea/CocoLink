@@ -19,7 +19,8 @@
 	<Action ClassName="StopAllActions" Name="StopAllActions" CHName="停止所有动画"/>
 
 	<Action ClassName="CreatLeaveFromJson" Name="CreatLeaveFromJson" CHName="根据数据初始化关卡（CreatLeaveFromJson）"/>
-
+	<Action ClassName="RemoveTableItem" Name="RemoveTableItem" CHName="删除表中数据"/>
+	
 	<Action ClassName="ChangeAtlasValue" Name="ChangeAtlasValue" CHName="修改数字标签"/>
 	<Action ClassName="ChangeProgressValue" Name="ChangeProgressValue" CHName=" 修改进度"/>
 	

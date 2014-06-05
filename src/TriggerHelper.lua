@@ -2,25 +2,7 @@
 -----动画-----
 --------------
 
---记录当前表
-local leaveTabel={}
-function getLeaveTabel( )
-	return leaveTabel
-end
-function setLeaveTabel(tab )
-	 leaveTabel  =tab
-end
---记录点击
-local indextabel={cliA={col=0 ,row=0},cliB={col=0 ,row=0}}
-function getIndexTabel( )
-	return indextabel
-end
-function setIndexTabelA(tab)
-	 indextabel["cliA"]  =tab
-end
-function setIndexTabelB(tab )
-	 indextabel["cliB"]  =tab
-end
+
 --根据名字找UI
 function seekGUI( guiRoot,childName )
 	return UIHelper:seekWidgetByName(guiRoot, childName)

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" standalone="yes" ?>
+<Root>
+  <Item Type="NodeTag" Name="NodeTag" CHName="渲染节点标签" Key = "NodeTag" Default="10000"/>
+</Root>

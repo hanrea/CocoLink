@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>D:\CocoLink\CocoStudio\ccsprojs\xiaomoxian</ProjectDir>
+  <Version>1.4.0.1</Version>
+  <Resources>D:\CocoLink\CocoStudio\assets</Resources>
+  <Name>xiaomoxian</Name>
+  <JsonFileName>xiaomoxian.json</JsonFileName>
+  <JsonFolder>D:\CocoLink\CocoStudio\ccsprojs\xiaomoxian\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>D:\CocoLink\CocoStudio\ccsprojs\xiaomoxian\xiaomoxian.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <ResourceFileList>
+    <string>xiaomoxian0.plist</string>
+  </ResourceFileList>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

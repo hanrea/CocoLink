@@ -646,16 +646,14 @@ function ArmaturePlayAction:init()
 end
 
 function ArmaturePlayAction:done(event,touch)
+
 	local pRender = ccs.SceneReader:getInstance():getNodeByTag(self._tag):getComponent(self._comName)
 	local pAr  =pRender:getNode()
 	if nil == pAr then
 		return
 	end
-	if self._type == 0  then 
-		pAr:playBackgroundMusic()
-	else
-		pAr:playEffect()
-	end
+	pAr:getAnimation():play(self._aniname )
+	
 end
 
 function ArmaturePlayAction:serialize(value)
@@ -665,9 +663,9 @@ function ArmaturePlayAction:serialize(value)
         for i = 1, count do
             local subDict =  dataItems[i]
             local key = subDict["key"]
-            if key == "ID" then
-                self._id = subDict["value"]
-            elseif key == "componentName" then
+            if key == "NodeTag" then
+                self._tag = subDict["value"]
+            elseif key == "ComponentName" then
                 self._comName = subDict["value"]
 			elseif key == "AnimationName" then
                 self._aniname = subDict["value"]
@@ -931,11 +929,9 @@ function CreatLeaveFromJson:done(event,touch)
 		string.gsub(line, '[^,]+', function(w) table.insert(splitlist, w) end )
 		table.insert(tabel, splitlist)
 	end
-
-	require "src/TriggerHelper"
+	require "src/link"
 	 setLeaveTabel(tabel)
-	
-	node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
 	 if nil == node then
         return
     end
@@ -949,6 +945,7 @@ function CreatLeaveFromJson:done(event,touch)
 			item:setScaleX(self._ScaleX)
 			item:setScaleY(self._ScaleY)
 			item:setTouchEnabled(false)
+			item:setTag(i*10+j)
 			node:addChild(item)
 		end		
 	end
@@ -990,6 +987,58 @@ function CreatLeaveFromJson:removeAll()
     print("CreatLeaveFromJson::removeAll")
 end
 
+
+------------------
+
+local RemoveTableItem = class("RemoveTableItem")
+RemoveTableItem._NodeTag  = -1
+
+function RemoveTableItem:ctor()
+	self._NodeTag  = -1
+
+end
+
+function RemoveTableItem:init()
+    return true
+end
+
+function RemoveTableItem:done(event,touch)
+	cclog(" %s  ===     ",self._NodeTag )
+	require "src/link"
+	local clitab = getIndexTabel()
+	
+	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
+	cclog("taga===>%s",tonumber(clitab["cliA"]["row"]*10+clitab["cliA"]["col"]))
+	 local widget =ccui.Helper:seekWidgetByTag(node,21)
+	
+	widget:removeFromParent()
+	
+	local nodeB = ccs.SceneReader:getInstance():getNodeByTag(clitab["cliB"]["row"]*10+clitab["cliB"]["col"])
+	if nil == nodeB then
+        return
+    end
+	nodeB:removeFromParent()
+end
+
+function RemoveTableItem:serialize(value)
+    local dataItems = value["dataitems"]
+    if nil ~= dataItems then
+        local count = table.getn(dataItems)
+        for i = 1, count do
+            local subDict =  dataItems[i]
+            local key = subDict["key"]
+            if key == "NodeTag" then
+                self._NodeTag = subDict["value"]
+            end
+        end
+    end
+end
+
+function RemoveTableItem:removeAll()
+    print("RemoveTableItem::removeAll")
+end
+
+------------------
 
 ------------------
 
@@ -1130,5 +1179,6 @@ ccs.registerTriggerClass("SetNodeVisible",SetNodeVisible.new)
 ccs.registerTriggerClass("PlayUIAnimation",PlayUIAnimation.new)
 ccs.registerTriggerClass("StopAllActions",StopAllActions.new)
 ccs.registerTriggerClass("CreatLeaveFromJson",CreatLeaveFromJson.new)
+ccs.registerTriggerClass("RemoveTableItem",RemoveTableItem.new)
 ccs.registerTriggerClass("ChangeAtlasValue",ChangeAtlasValue.new)
 ccs.registerTriggerClass("ChangeProgressValue",ChangeProgressValue.new)

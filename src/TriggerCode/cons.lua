@@ -51,7 +51,7 @@ end
 
 
 ------------
-local ArmatureActionState = class("NodeInRect")
+local ArmatureActionState = class("ArmatureActionState")
 ArmatureActionState._tag  = -1
 ArmatureActionState._comName = nil
 ArmatureActionState._aniname   = nil
@@ -450,15 +450,15 @@ function TabelIsClick:detect(event,touch)
 		end
 	end
 		cclog("本次点击位置【%s】【%s】",clickTabel["col"],clickTabel["row"])
-	require "src/TriggerHelper"
+	require "src/link"
 	local clitab =getIndexTabel()
 	--cclog("上次点击的位置 【%s】【%s】",clitab["cliA"]["col"],clitab["cliA"]["row"])
 
 	if clitab["cliA"]["col"]~=0 and clitab["cliA"]["row"]~=0 then
 		setIndexTabelB(clickTabel)
-		require "src/TriggerHelper"
+		
 		local tab= getLeaveTabel()
-		require "src/link"
+		
 		local c1 = clitab["cliA"]["col"]
 		local r1 =clitab["cliA"]["row"]
 		local c2 =clickTabel["col"]
@@ -518,6 +518,10 @@ function TabelIsClick:removeAll()
     print("TabelIsClick::removeAll")
 end
 
+ccs.registerTriggerClass("TimeElapsed",TimeElapsed.new)
+ccs.registerTriggerClass("ArmatureActionState",ArmatureActionState.new)
 ccs.registerTriggerClass("NodeInRect",NodeInRect.new)
+ccs.registerTriggerClass("NodeVisible",NodeVisible.new)
+ccs.registerTriggerClass("RectangleCollisionTest",RectangleCollisionTest.new)
 ccs.registerTriggerClass("WidgetIsClick",WidgetIsClick.new)
 ccs.registerTriggerClass("TabelIsClick",TabelIsClick.new)
