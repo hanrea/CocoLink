@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <SceneProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\CocoLink\CocoStudio\ccsprojs\MainScene</ProjectDir>
+  <ProjectDir>E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene</ProjectDir>
   <Version>1.4.0.1</Version>
-  <Resources>D:\CocoLink</Resources>
+  <Resources>E:\Git\CocoLink</Resources>
   <Name>MainScene</Name>
   <JsonFileName>MainScene.json</JsonFileName>
-  <JsonFolder>D:\CocoLink\CocoStudio\assets\publish</JsonFolder>
+  <JsonFolder>E:\Git\CocoLink\CocoStudio\assets\publish</JsonFolder>
   <JsonList />
   <CanvasSize>
     <Width>1136</Width>
     <Height>640</Height>
   </CanvasSize>
-  <filePath>D:\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
+  <filePath>E:\Git\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
   <ProjectType>SceneProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <JSFileList />
   <DefaultUI_JSList />
-  <ExternalSimulatorPath>D:\CocoLink\CocoLink.exe</ExternalSimulatorPath>
+  <ExternalSimulatorPath>E:\Git\CocoLink\CocoLink.exe</ExternalSimulatorPath>
   <ExternalCommand />
-  <Res>D:\CocoLink\CocoStudio\assets</Res>
+  <Res>E:\Git\CocoLink\CocoStudio\assets</Res>
 </SceneProject>

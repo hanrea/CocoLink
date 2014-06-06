@@ -16,7 +16,7 @@ function __G__TRACKBACK__(msg)
 end
 
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
-	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
+	cc.FileUtils:getInstance():addSearchResolutionsOrder("Resources");
 
 
 local function main()
@@ -25,7 +25,7 @@ local function main()
     collectgarbage("setpause", 100)
     collectgarbage("setstepmul", 5000)
 	cc.FileUtils:getInstance():addSearchResolutionsOrder("src");
-	cc.FileUtils:getInstance():addSearchResolutionsOrder("res");
+	cc.FileUtils:getInstance():addSearchResolutionsOrder("Resources");
 	local schedulerID = 0
     --support debug
     local targetPlatform = cc.Application:getInstance():getTargetPlatform()

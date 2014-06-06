@@ -19,7 +19,7 @@ end
 
 function TriggerTest:createGameScene()
 	cclog("createGameScene")
-    local node = ccs.SceneReader:getInstance():createNodeWithSceneFile("res/publish/MainScene.json")
+    local node = ccs.SceneReader:getInstance():createNodeWithSceneFile("Resources/publish/MainScene.json")
     cclog("createGameSceneend")
 	ccs.sendTriggerEvent(triggerEventDef.TRIGGEREVENT_ENTERSCENE)
 	return node

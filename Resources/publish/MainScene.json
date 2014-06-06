@@ -297,7 +297,7 @@
             },
             {
               "key": "Duration",
-              "value": 1
+              "value": 0
             },
             {
               "key": "IsReverse",
@@ -326,7 +326,7 @@
             },
             {
               "key": "Duration",
-              "value": 1
+              "value": 0
             }
           ]
         }
@@ -416,6 +416,15 @@
             {
               "key": "AnimationName",
               "value": "speak"
+            }
+          ]
+        },
+        {
+          "classname": "RemoveTableItem",
+          "dataitems": [
+            {
+              "key": "NodeTag",
+              "value": 10009
             }
           ]
         }

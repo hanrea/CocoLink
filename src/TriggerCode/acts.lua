@@ -940,7 +940,7 @@ function CreatLeaveFromJson:done(event,touch)
 		for j=2,self._Col-1 do
 			item = ccui.CheckBox:create()
 			item:setPosition(cc.p(self._startX +((j-2)*self._ItemWidth), self._startY +((self._Col-i)*self._Itemheigth)))
-			item:loadTextureBackGround(tostring("res/"..tabel[i][j]..".png"))
+			item:loadTextureBackGround(tostring("Resources/"..tabel[i][j]..".png"))
 			item:setSize(cc.size(self._ItemWidth,self._Itemheigth))
 			item:setScaleX(self._ScaleX)
 			item:setScaleY(self._ScaleY)

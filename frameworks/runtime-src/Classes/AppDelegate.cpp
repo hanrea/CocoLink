@@ -42,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	auto fileUtils = FileUtils::getInstance();
 	std::vector<std::string> SearchPaths =fileUtils->getSearchPaths();
-	SearchPaths.insert(SearchPaths.begin(),"res");
+	SearchPaths.insert(SearchPaths.begin(),"Resources");
 	FileUtils::getInstance()->setSearchPaths(SearchPaths);
 
 

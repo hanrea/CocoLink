@@ -19,6 +19,8 @@ function testcreat()
 end
 
 
+
+
 --记录当前表
 local leaveTabel={}
 function getLeaveTabel( )
