@@ -449,37 +449,49 @@ function TabelIsClick:detect(event,touch)
 			end
 		end
 	end
-		cclog("本次点击位置【%s】【%s】",clickTabel["col"],clickTabel["row"])
-	require "src/link"
-	local clitab =getIndexTabel()
+	cclog("本次点击位置【%s】【%s】",clickTabel["col"],clickTabel["row"])
+	require "src/LinkTabel"
+	local clitab = LinkTabel:instance():getClickTabel()
 	--cclog("上次点击的位置 【%s】【%s】",clitab["cliA"]["col"],clitab["cliA"]["row"])
-
+	if nil== clitab then
+		cclog("第一次点击，表格为空")
+		LinkTabel:instance():setClickTabelA(clickTabel)
+		--return false
+	end
+	
 	if clitab["cliA"]["col"]~=0 and clitab["cliA"]["row"]~=0 then
-		setIndexTabelB(clickTabel)
-		
-		local tab= getLeaveTabel()
-		
+		LinkTabel:instance():setClickTabelB(clickTabel)
+		require("src/link")
+		local tab= LinkTabel:instance():getLeaveTabel()
+		-- cclog("输出表")
+		-- print_r(tab)
 		local c1 = clitab["cliA"]["col"]
 		local r1 =clitab["cliA"]["row"]
 		local c2 =clickTabel["col"]
 		local r2 =clickTabel["row"]
-
+		
 		if isConnection(tab,c1,r1,c2,r2) then
-			setIndexTabelA({col=0 ,row=0})
-			setIndexTabelB({col=0 ,row=0})
+			cclog("识别成功，修改表格数据")
+			LinkTabel:instance():setClickTabelA({col=0 ,row=0})
+			LinkTabel:instance():setClickTabelB({col=0 ,row=0})
 			tab[r1][c1]=0
 			tab[r2][c2]=0
-			setLeaveTabel(tab)
-			cclog("识别成功，修改表格数据")
+			LinkTabel:instance():setLeaveTabel(tab)
+			
 			return true
 		else
-			setIndexTabelA({col=0 ,row=0})
-			setIndexTabelB({col=0 ,row=0})
+			cclog("识别失败，重置点击")
+			LinkTabel:instance():setClickTabelA({col=0 ,row=0})
+			LinkTabel:instance():setClickTabelB({col=0 ,row=0})
 			
 		end
 	else
 		cclog("第一次点击，表格为空")
-		setIndexTabelA(clickTabel)
+		LinkTabel:instance():setClickTabelA(clickTabel)
+		require("src/link")
+		local tab= LinkTabel:instance():getLeaveTabel()
+		cclog("输出表")
+		print_r(tab)
 	end
     return false
 end

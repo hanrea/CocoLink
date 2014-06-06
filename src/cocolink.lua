@@ -102,7 +102,7 @@ function TriggerTest.create()
 				for moduleName,_ in pairs(loadedModule) do
 					if string.find(moduleName,"src.") ~= nil then
 						package.loaded[moduleName] = nil 
-							cclog("vvv%s",moduleName)
+						--	cclog("vvv%s",moduleName)
 						require(moduleName)
 					end
 				end

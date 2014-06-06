@@ -1,7 +1,3 @@
---------------
------动画-----
---------------
-
 
 --根据名字找UI
 function seekGUI( guiRoot,childName )

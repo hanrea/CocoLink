@@ -921,7 +921,7 @@ end
 
 function CreatLeaveFromJson:done(event,touch)
 	if touch~=nil then
-		cclog("touc ==>  %s  ",touch:getLocation().x)
+		cclog("touc ==>%s  ",touch:getLocation().x)
 	end
 	tabel= {}
 	for line in io.lines("src/leave.txt") do
@@ -929,8 +929,9 @@ function CreatLeaveFromJson:done(event,touch)
 		string.gsub(line, '[^,]+', function(w) table.insert(splitlist, w) end )
 		table.insert(tabel, splitlist)
 	end
-	require "src/link"
-	 setLeaveTabel(tabel)
+	require "src/LinkTabel"
+	LinkTabel:instance():setLeaveTabel(tabel)
+	
 	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag )
 	 if nil == node then
         return
@@ -1004,14 +1005,14 @@ end
 
 function RemoveTableItem:done(event,touch)
 	cclog(" %s  ===     ",self._NodeTag )
-	require "src/link"
-	local clitab = getIndexTabel()
+	require "src/LinkTabel"
+	local clitab = LinkTabel:instance():getClickTabel()
 	
 	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
 	cclog("taga===>%s",tonumber(clitab["cliA"]["row"]*10+clitab["cliA"]["col"]))
 	 local widget =ccui.Helper:seekWidgetByTag(node,21)
 	
-	widget:removeFromParent()
+	--widget:removeFromParent()
 	
 	local nodeB = ccs.SceneReader:getInstance():getNodeByTag(clitab["cliB"]["row"]*10+clitab["cliB"]["col"])
 	if nil == nodeB then

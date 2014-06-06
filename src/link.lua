@@ -19,28 +19,6 @@ function testcreat()
 end
 
 
-
-
---记录当前表
-local leaveTabel={}
-function getLeaveTabel( )
-	return leaveTabel
-end
-function setLeaveTabel(tab )
-	 leaveTabel  =tab
-end
---记录点击
- indextabel={cliA={col=0 ,row=0},cliB={col=0 ,row=0}}
-function getIndexTabel( )
-	return indextabel
-end
-function setIndexTabelA(tab)
-	 indextabel["cliA"]  =tab
-end
-function setIndexTabelB(tab )
-	 indextabel["cliB"]  =tab
-end
----------------
 ---判断入口
 function isConnection(tabel,C1,R1,C2,R2)
 
@@ -354,9 +332,9 @@ function print_r(root)
 		return tconcat(temp,""..space)
 	end
 	
-	--print(_dump(root, "",""))
+	print(_dump(root, "",""))
 	
-	local file = io.open("src/leave.txt","a")
-	 file:write(string.format(_dump(root, "","").."\n\n==========================="..os.date().."==========================\n"))
-	 file:close()
+	--local file = io.open("src/leave.txt","a")
+	--file:write(string.format(_dump(root, "","").."\n\n==========================="..os.date().."==========================\n"))
+	--file:close()
 end
