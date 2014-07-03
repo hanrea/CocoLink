@@ -472,8 +472,8 @@ function TabelIsClick:detect(event,touch)
 		
 		if isConnection(tab,c1,r1,c2,r2) then
 			cclog("识别成功，修改表格数据")
-			LinkTabel:instance():setClickTabelA({col=0 ,row=0})
-			LinkTabel:instance():setClickTabelB({col=0 ,row=0})
+			--LinkTabel:instance():setClickTabelA({col=0 ,row=0})
+			--LinkTabel:instance():setClickTabelB({col=0 ,row=0})
 			tab[r1][c1]=0
 			tab[r2][c2]=0
 			LinkTabel:instance():setLeaveTabel(tab)
