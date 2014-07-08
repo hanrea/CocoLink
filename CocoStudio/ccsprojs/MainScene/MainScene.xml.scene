@@ -1,41 +1,22 @@
 <?xml version="1.0"?>
 <SceneProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<<<<<<< HEAD
-  <ProjectDir>E:\GitOfMe\CocoLink\CocoStudio\ccsprojs\MainScene</ProjectDir>
-  <Version>1.5.0.0</Version>
-  <Resources>E:\GitOfMe\CocoLink</Resources>
-  <Name>MainScene</Name>
-  <JsonFileName>MainScene.json</JsonFileName>
-  <JsonFolder>E:\GitOfMe\CocoLink\CocoStudio\assets\publish</JsonFolder>
-=======
   <ProjectDir>D:\CocoLink\CocoStudio\ccsprojs\MainScene</ProjectDir>
   <Version>1.4.0.1</Version>
   <Resources>D:\CocoLink</Resources>
   <Name>MainScene</Name>
   <JsonFileName>MainScene.json</JsonFileName>
-  <JsonFolder>D:\CocoLink\CocoStudio\assets\publish</JsonFolder>
->>>>>>> 38a059bab84a9860b9bb40e47c3b62cda643ac39
+  <JsonFolder>E:\GitOfMe\CocoLink\CocoStudio\assets\publish</JsonFolder>
   <JsonList />
   <CanvasSize>
     <Width>1136</Width>
     <Height>640</Height>
   </CanvasSize>
-<<<<<<< HEAD
   <filePath>E:\GitOfMe\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
-=======
-  <filePath>D:\CocoLink\CocoStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
->>>>>>> 38a059bab84a9860b9bb40e47c3b62cda643ac39
   <ProjectType>SceneProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <JSFileList />
   <DefaultUI_JSList />
-<<<<<<< HEAD
   <ExternalSimulatorPath>E:\GitOfMe\CocoLink\CocoLink.exe</ExternalSimulatorPath>
   <ExternalCommand />
   <Res>E:\GitOfMe\CocoLink\CocoStudio\assets</Res>
-=======
-  <ExternalSimulatorPath>D:\CocoLink\CocoLink.exe</ExternalSimulatorPath>
-  <ExternalCommand />
-  <Res>D:\CocoLink\CocoStudio\assets</Res>
->>>>>>> 38a059bab84a9860b9bb40e47c3b62cda643ac39
 </SceneProject>
