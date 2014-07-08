@@ -1007,13 +1007,11 @@ function RemoveTableItem:done(event,touch)
 	cclog(" %s  ===     ",self._NodeTag )
 	require "src/LinkTabel"
 	local clitab = LinkTabel:instance():getClickTabel()
-	
-	local node = ccs.SceneReader:getInstance():getNodeByTag(self._NodeTag)
-	cclog("taga===>%s",tonumber(clitab["cliA"]["row"]*10+clitab["cliA"]["col"]))
-	 local widget =ccui.Helper:seekWidgetByTag(node,21)
-	
-	--widget:removeFromParent()
-	
+	local nodeA = ccs.SceneReader:getInstance():getNodeByTag(clitab["cliA"]["row"]*10+clitab["cliA"]["col"])
+	if nil == nodeA then
+        return
+    end
+	nodeA:removeFromParent()
 	local nodeB = ccs.SceneReader:getInstance():getNodeByTag(clitab["cliB"]["row"]*10+clitab["cliB"]["col"])
 	if nil == nodeB then
         return
