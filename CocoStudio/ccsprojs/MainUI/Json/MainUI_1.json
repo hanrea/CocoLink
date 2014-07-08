@@ -10,10 +10,8 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [],
-  "texturesPng": [
-    "GUI/loadingbar.png"
-  ],
-  "version": "1.4.0.1",
+  "texturesPng": [],
+  "version": "1.5.0.0",
   "widgetTree": {
     "classname": "Panel",
     "name": null,
@@ -41,8 +39,8 @@
           "ignoreSize": true,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.08039906,
-          "positionPercentY": 0.8859376,
+          "positionPercentX": 0.08010563,
+          "positionPercentY": 0.8859375,
           "positionType": 0,
           "rotation": 0,
           "scaleX": 1,
@@ -92,7 +90,7 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.03433089,
+          "positionPercentX": 0.0334507041,
           "positionPercentY": 0.5453125,
           "positionType": 0,
           "rotation": -90,
@@ -117,7 +115,7 @@
           "scale9Enable": false,
           "texture": null,
           "textureData": {
-            "path": "D:\\WorkSoft\\CocosStudio\\EditorDefaultRes\\GUI/loadingbar.png",
+            "path": "C:\\Program Files (x86)\\CocoStudio\\EditorDefaultRes\\GUI/loadingbar.png",
             "plistFile": "",
             "resourceType": 2
           }

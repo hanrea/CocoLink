@@ -93,8 +93,8 @@
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 1325.5001220703125,
-      "y": 289.16647338867188,
+      "x": 1308.83349609375,
+      "y": 222.49977111816406,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -281,35 +281,6 @@
           ]
         },
         {
-          "classname": "TMoveBy",
-          "dataitems": [
-            {
-              "key": "Tag",
-              "value": 10015
-            },
-            {
-              "key": "x",
-              "value": -400
-            },
-            {
-              "key": "y",
-              "value": 1
-            },
-            {
-              "key": "Duration",
-              "value": 0
-            },
-            {
-              "key": "IsReverse",
-              "value": 0
-            },
-            {
-              "key": "IsRepeatForever",
-              "value": 0
-            }
-          ]
-        },
-        {
           "classname": "TMoveTo",
           "dataitems": [
             {
@@ -326,6 +297,35 @@
             },
             {
               "key": "Duration",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "classname": "TMoveBy",
+          "dataitems": [
+            {
+              "key": "Tag",
+              "value": 10015
+            },
+            {
+              "key": "x",
+              "value": -800
+            },
+            {
+              "key": "y",
+              "value": 1
+            },
+            {
+              "key": "Duration",
+              "value": 0
+            },
+            {
+              "key": "IsReverse",
+              "value": 0
+            },
+            {
+              "key": "IsRepeatForever",
               "value": 0
             }
           ]
@@ -488,7 +488,7 @@
       "name": "Trigger6"
     }
   ],
-  "Version": "1.4.0.1",
+  "Version": "1.5.0.0",
   "components": [
     {
       "__type": "ComSceneSurrogate:#EditorCommon.JsonModel.Component",

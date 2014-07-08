@@ -2,15 +2,6 @@
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
     <Project>MainScene</Project>
-    <GuidesList>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>298.5</GuidesPosition>
-      </GuidesInfo>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>803.21432113647461</GuidesPosition>
-      </GuidesInfo>
-    </GuidesList>
+    <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

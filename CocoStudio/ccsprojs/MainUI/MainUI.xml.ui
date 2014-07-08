@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\CocoLink\CocoStudio\ccsprojs\MainUI</ProjectDir>
-  <Version>1.4.0.1</Version>
-  <Resources>D:\CocoLink\CocoStudio\assets</Resources>
+  <ProjectDir>E:\GitOfMe\CocoLink\CocoStudio\ccsprojs\MainUI</ProjectDir>
+  <Version>1.5.0.0</Version>
+  <Resources>E:\GitOfMe\CocoLink\CocoStudio\assets</Resources>
   <Name>MainUI</Name>
   <JsonFileName>MainUI.json</JsonFileName>
-  <JsonFolder>D:\CocoLink\CocoStudio\ccsprojs\MainUI\Json</JsonFolder>
+  <JsonFolder>E:\GitOfMe\CocoLink\CocoStudio\ccsprojs\MainUI\Json</JsonFolder>
   <JsonList>
     <string>MainUI_1.json</string>
   </JsonList>
@@ -13,13 +13,11 @@
     <Width>1136</Width>
     <Height>640</Height>
   </CanvasSize>
-  <filePath>D:\CocoLink\CocoStudio\ccsprojs\MainUI\MainUI.xml.ui</filePath>
+  <filePath>E:\GitOfMe\CocoLink\CocoStudio\ccsprojs\MainUI\MainUI.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList />
-  <imagePngList>
-    <string>GUI/loadingbar.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>MainUI_1.json</CurrentUIJson>
 </UIProject>
